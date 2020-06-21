@@ -152,12 +152,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="15428通用控件.h" />
+    <ClInclude Include="charTransfer.h" />
+    <ClInclude Include="debugPrintf.h" />
+    <ClInclude Include="DialogProc.h" />
+    <ClInclude Include="Enum.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="ListControl.h" />
+    <ClInclude Include="PeProc.h" />
+    <ClInclude Include="Transfer.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="15428通用控件.cpp" />
+    <ClCompile Include="charTransfer.cpp" />
+    <ClCompile Include="debugPrintf.cpp" />
+    <ClCompile Include="DialogProc.cpp" />
+    <ClCompile Include="Enum.cpp" />
+    <ClCompile Include="ListControl.cpp" />
+    <ClCompile Include="PeProc.cpp" />
+    <ClCompile Include="Transfer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="15428通用控件.rc" />
