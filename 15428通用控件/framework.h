@@ -23,11 +23,15 @@
 #include "DialogProc.h"
 #include "ListControl.h"
 #include "PeProc.h"
+#include "FileMethod.h"
 
 extern HINSTANCE hInst;
 
 #include <commctrl.h>			
 #pragma comment(lib,"comctl32.lib")		
+
+
+//文件操作相关
 
 
 #endif

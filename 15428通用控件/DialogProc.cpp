@@ -18,7 +18,8 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lP
 		{
 		case IDC_BUTTON_PEEDIT:
 			MessageBox(hwndDlg, L"Clicked PEEDIT", L"PEEDIT", MB_OK);
-			DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_PEEDITOR), hwndDlg, PeProc);
+			//句柄参数如果填父窗口在子窗口存在时父窗口无法移动
+			DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_PEEDITOR), NULL, PeProc);	
 			return TRUE;
 
 		case IDC_BUTTON_ABOUT:

@@ -156,6 +156,7 @@
     <ClInclude Include="debugPrintf.h" />
     <ClInclude Include="DialogProc.h" />
     <ClInclude Include="Enum.h" />
+    <ClInclude Include="FileMethod.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="ListControl.h" />
     <ClInclude Include="PeProc.h" />
@@ -169,6 +170,7 @@
     <ClCompile Include="debugPrintf.cpp" />
     <ClCompile Include="DialogProc.cpp" />
     <ClCompile Include="Enum.cpp" />
+    <ClCompile Include="FileMethod.cpp" />
     <ClCompile Include="ListControl.cpp" />
     <ClCompile Include="PeProc.cpp" />
     <ClCompile Include="Transfer.cpp" />

@@ -48,6 +48,9 @@
     <ClInclude Include="PeProc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FileMethod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="15428通用控件.cpp">
@@ -72,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PeProc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileMethod.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
