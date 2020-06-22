@@ -37,6 +37,7 @@
 #define IDC_EDIT_SIZEOFOPTIONALHEADER   1030
 #define IDC_EDIT_CHARACTERISTICS        1031
 #define IDC_EDIT_SUBSYSTEM              1032
+#define IDC_EDIT1                       1033
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -46,7 +47,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        131
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1018
+#define _APS_NEXT_CONTROL_VALUE         1034
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

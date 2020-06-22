@@ -24,14 +24,14 @@ static HWND hwndListModules;
 
 static const TCHAR szProblemProc[] = TEXT("System Process");
 
-VOID InitProcessList(HWND hPreWnd)
+VOID InitProcessList(HWND hwndOwner)
 {
 	LV_COLUMN lvColumn;
 
 	memset(&lvColumn, 0, sizeof(lvColumn));
 	//lvColumn = { 0 };
 
-	hwndListProcess = GetDlgItem(hPreWnd, IDC_LIST_PROCESS);
+	hwndListProcess = GetDlgItem(hwndOwner, IDC_LIST_PROCESS);
 	SendMessage(hwndListProcess, LVM_SETEXTENDEDLISTVIEWSTYLE, LVS_EX_FULLROWSELECT, LVS_EX_FULLROWSELECT);
 	
 	lvColumn.mask = LVCF_TEXT | LVCF_WIDTH | LVCF_SUBITEM;
@@ -43,10 +43,10 @@ VOID InitProcessList(HWND hPreWnd)
 		ListView_InsertColumn(hwndListProcess, i, &lvColumn);
 	}
 	
-	SetProcessListItem(hPreWnd, hwndListProcess);
+	SetProcessListItem(hwndOwner, hwndListProcess);
 }
 
-VOID SetProcessListItem(HWND hPreWnd, HWND hListWnd)
+VOID SetProcessListItem(HWND hwndOwner, HWND hListWnd)
 {
 	LV_ITEM vitem = {0};
 	vitem.mask = LVIF_TEXT;
@@ -117,12 +117,12 @@ VOID SetProcessListItem(HWND hPreWnd, HWND hListWnd)
 	delete arrProcessEntry;
 }
 
-VOID InitModuleList(HWND hPreWnd)
+VOID InitModuleList(HWND hwndOwner)
 {
 	LV_COLUMN lvColumn;
 	memset(&lvColumn, 0, sizeof(lvColumn));
 
-	hwndListProcess = GetDlgItem(hPreWnd, IDC_LIST_MODULES);
+	hwndListProcess = GetDlgItem(hwndOwner, IDC_LIST_MODULES);
 	SendMessage(hwndListProcess, LVM_SETEXTENDEDLISTVIEWSTYLE, LVS_EX_FULLROWSELECT, LVS_EX_FULLROWSELECT);
 
 	lvColumn.mask = LVCF_TEXT | LVCF_WIDTH | LVCF_SUBITEM;
@@ -138,13 +138,13 @@ VOID InitModuleList(HWND hPreWnd)
 	}
 }
 
-VOID SetModulesListItem(HWND hPreWnd, HWND hwndListProcess)
+VOID SetModulesListItem(HWND hWndOwner, HWND hwndListProcess)
 {
 	DWORD dwListProcRow = 0;;
 	TCHAR wszPid[0x10] = { 0 };
 	LV_ITEM lvItem = { 0 };
 
-	hwndListModules= GetDlgItem(hPreWnd, IDC_LIST_MODULES);
+	hwndListModules= GetDlgItem(hWndOwner, IDC_LIST_MODULES);
 
 	dwListProcRow = (DWORD)SendMessage(hwndListProcess, LVM_GETNEXTITEM, -1, LVNI_SELECTED);	//ªÒ»°––∫≈
 	if (dwListProcRow == -1)

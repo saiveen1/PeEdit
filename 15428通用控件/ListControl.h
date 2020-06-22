@@ -17,13 +17,13 @@
 //HWND h instance windows
 	//
 
-VOID InitProcessList(HWND hPreWnd);
+VOID InitProcessList(HWND hwndOwner);
 
-VOID SetProcessListItem(HWND hPreWnd, HWND hListWnd);
+VOID SetProcessListItem(HWND hwndOwner, HWND hListWnd);
 
-VOID InitModuleList(HWND hPreWnd);
+VOID InitModuleList(HWND hwndOwner);
 
-VOID SetModulesListItem(HWND hPreWnd, HWND hwndListProcess);
+VOID SetModulesListItem(HWND hwndOwner, HWND hwndListProcess);
 
 
 

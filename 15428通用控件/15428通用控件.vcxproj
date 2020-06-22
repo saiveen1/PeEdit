@@ -159,6 +159,7 @@
     <ClInclude Include="FileMethod.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="ListControl.h" />
+    <ClInclude Include="PeFile.h" />
     <ClInclude Include="PeProc.h" />
     <ClInclude Include="Transfer.h" />
     <ClInclude Include="Resource.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="Enum.cpp" />
     <ClCompile Include="FileMethod.cpp" />
     <ClCompile Include="ListControl.cpp" />
+    <ClCompile Include="PeFile.cpp" />
     <ClCompile Include="PeProc.cpp" />
     <ClCompile Include="Transfer.cpp" />
   </ItemGroup>

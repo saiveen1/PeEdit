@@ -1,12 +1,22 @@
 #include "PeProc.h"
 
+FileMethod *pFile = new FileMethod;	//不可以放在case里面因为编译器会检查 如果直接default会导致对象没有初始化
+//尽量不要在关键词内声明新变量 吃过好多亏了
+//不能声明在函数里面是因为是回调函数不断申请空间会崩掉, 所以还是设成全局
+
 INT_PTR CALLBACK PeProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
+
+
 	switch (message)
 	{
 	case WM_INITDIALOG:
-		MessageBox(hwndDlg, L"Second Dialog.", L"PEEDIT", MB_OK);
+	{
+		TCHAR *wszFileName = pFile->GetFileName(hwndDlg);
+		MessageBox(hwndDlg, wszFileName, L"PEEDIT", MB_OK);
+
 		return TRUE;
+	}
 
 	case WM_COMMAND:
 	{
@@ -47,9 +57,15 @@ INT_PTR CALLBACK PeProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam
 
 	case WM_CLOSE:
 		EndDialog(hwndDlg, 0);
+		delete pFile;
 		return TRUE;
 
 	default:
 		return FALSE;
 	}
+}
+
+VOID SetEditItem(HWND hwndOwner)
+{
+
 }
