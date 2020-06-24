@@ -20,14 +20,17 @@
 #define IDC_BUTTON_Exit                 1002
 #define IDC_LIST_PROCESS                1005
 #define IDC_LIST_MODULES                1006
-#define IDC_EDIT_IAMGEBASE              1017
+#define IDC_EDIT_IMAGEBASE              1017
 #define IDC_EDIT_SECTIONALIGNMENT       1018
 #define IDC_EDIT_SizeOfImage            1019
-#define IDC_EDIT_IMAGEBASE              1020
+#define IDC_EDIT_SizeOfIFAe             1019
+#define IDC_EDIT_MAGIC                  1020
 #define IDC_EDIT_BASECODE               1021
 #define IDC_EDIT_FILEALIGNMENT          1022
 #define IDC_EDIT_BASEOFCODE             1023
+#define IDC_EDIT_BASEOFDATA             1023
 #define IDC_EDIT_ENTRYPOINT8            1024
+#define IDC_EDIT_ENTRYPOINT             1024
 #define IDC_EDIT_NUMOFSECTIONS          1025
 #define IDC_EDIT_CHECKSUM               1026
 #define IDC_EDIT_TIMEDATASTAMP          1027
@@ -37,7 +40,6 @@
 #define IDC_EDIT_SIZEOFOPTIONALHEADER   1030
 #define IDC_EDIT_CHARACTERISTICS        1031
 #define IDC_EDIT_SUBSYSTEM              1032
-#define IDC_EDIT1                       1033
 #define IDC_STATIC                      -1
 
 // Next default values for new objects

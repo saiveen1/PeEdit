@@ -1,7 +1,7 @@
 
 #include "Transfer.h"
 
-void HexToStr(int64_t qwSrc, TCHAR *wszDest)
+void Hex2Str(int64_t qwSrc, TCHAR *wszDest)
 {
 	DWORD dwLow = (DWORD)qwSrc;
 	int64_t i64Temp = (qwSrc & 0xffffffff00000000) / 0x10000000;

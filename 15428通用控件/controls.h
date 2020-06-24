@@ -18,9 +18,11 @@
 #define __DECIMAL			10
 #define __HEX				16
 
+class FileMethod;
+class x86PeFile;
+
 //LV listView
 //HWND h instance windows
-	//
 
 VOID InitProcessList(HWND hwndOwner);
 

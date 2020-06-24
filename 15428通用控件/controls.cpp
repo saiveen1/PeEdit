@@ -1,4 +1,5 @@
 #include "controls.h"
+#include "DIALOGPROC.h"	//pe info 变量
 static const TCHAR *pszListTitleArr[4] =
 {
 	L"Process",
@@ -95,7 +96,7 @@ VOID SetProcessListItem(HWND hwndOwner, HWND hListWnd)
 		else
 		{
 			int64_t i64ImageBase = (int64_t)(pModuleEntryW.modBaseAddr);	//由于是64位 所以还是逃不过自己写数字到字符串的转换....
-			HexToStr(i64ImageBase, szImageBase);
+			Hex2Str(i64ImageBase, szImageBase);
 			vitem.pszText = szImageBase;
 			vitem.iItem = dwRow;
 			vitem.iSubItem = dwColumn++;
@@ -188,7 +189,7 @@ VOID SetModulesListItem(HWND hWndOwner, HWND hwndListProcess)
 		ListView_InsertItem(hwndListModules, &lvItem);
 
 		int64_t ImageBase = (int64_t)(arrModuleEntry[dwCount].modBaseAddr);
-		HexToStr(ImageBase, wszImageBase);
+		Hex2Str(ImageBase, wszImageBase);
 		lvItem.iItem = dwRow;
 		lvItem.iSubItem = dwColumn++;
 		lvItem.pszText = wszImageBase;
@@ -210,5 +211,5 @@ VOID SetModulesListItem(HWND hWndOwner, HWND hwndListProcess)
 
 VOID SetPeFileBaseInfo(HWND hwndOwner)
 {
-	//SetDlgItemText(hwndOwner, IDC_EDIT_IMAGEBASE, pFileInfo->getImageBase());
+	SetDlgItemText(hwndOwner, IDC_EDIT_IMAGEBASE, pFileInfo->getImageBase(GETWCHAR));
 }

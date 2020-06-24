@@ -4,8 +4,6 @@
 #include "x86PeFile.h"
 //static WCHAR szListTitle[] = L"Process";
 
-extern FileMethod *pFile;
-extern x86PeFile *pFileInfo;
 
 INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {

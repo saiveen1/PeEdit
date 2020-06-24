@@ -20,6 +20,7 @@ INT_PTR CALLBACK PeProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam
 			MessageBox(hwndDlg, wszFileName, L"PEEDIT", MB_OK);
 			pFileInfo->Init(wszFileName);
 			DbgPrintf("%lld", pFileInfo->getImageBase());
+			SetPeFileBaseInfo(hwndDlg);
 		}
 		return TRUE;
 	}
@@ -70,7 +71,3 @@ INT_PTR CALLBACK PeProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam
 	}
 }
 
-VOID SetEditItem(HWND hwndOwner)
-{
-
-}

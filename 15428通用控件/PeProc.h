@@ -6,12 +6,13 @@
 #include "FileMethod.h"
 #include "x86PeFile.h"
 #include "debugPrintf.h"
+#include "controls.h"
+
+
 #endif // _DEBUG
 
-//class Filemethod;
-//class x86PeFile;
+
 
 
 INT_PTR CALLBACK PeProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam);
 
-VOID SetEditItem(HWND hwndOwner);

@@ -6,7 +6,7 @@
 #include <windows.h>
 #include <stdint.h>
 
-void HexToStr(int64_t qwSrc, TCHAR *wszDest);
+void Hex2Str(int64_t qwSrc, TCHAR *wszDest);
 
 int  Str2Int(const char *nptr);
 

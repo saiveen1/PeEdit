@@ -1,17 +1,14 @@
 #include "x86PeFile.h"
 #pragma warning(disable:4996)
-x86PeFile::x86PeFile()
+x86PeFile::x86PeFile() 
 {
+	pszBaseNum = new TCHAR[LENGTH_QWORD]{ 0 };
 }
 
-x86PeFile::x86PeFile(TCHAR* fileName)
-{
-	ReadPeFile(fileName);
-	InitializeBasicInfo(m_pFileBuffer);
-}
 
 x86PeFile::~x86PeFile()
 {
+	delete pszBaseNum;
 }
 
 
@@ -29,6 +26,12 @@ QWORD x86PeFile::getImageBase()
 }
 
 
+
+LPCWSTR x86PeFile::getImageBase(DWORD)
+{
+	Hex2Str(imageBase, pszBaseNum);
+	return pszBaseNum;
+}
 
 BOOL x86PeFile::ReadPeFile(TCHAR *wszFileName)
 {

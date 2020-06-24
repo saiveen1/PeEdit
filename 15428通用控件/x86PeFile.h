@@ -12,13 +12,14 @@
 #include "namedefine.h"
 #include "transfer.h"
 
+#define	GETWCHAR 1
 #define SIZE_OF_SECTION 0x28
 #define SIZE_OF_SECTION_NAME 0x8
 #define SIZE_OF_DOSHEADER sizeof(IMAGE_DOS_HEADER)
 #define SIZE_OF_EXPORTDIRECTORY 0x28
 #define SIZE_OF_IMPORT_DESCRIPTOR sizeof(IMAGE_IMPORT_DESCRIPTOR)
 #define SIZE_OF_RESOURCE_DIRECTORY sizeof(IMAGE_RESOURCE_DIRECTORY)
-
+#define LENGTH_QWORD 0x10
 #define MAX_CHAR_ARR 20
 #define TODO 0
 
@@ -26,12 +27,12 @@ class x86PeFile
 {
 public:
 	x86PeFile();
-	x86PeFile(TCHAR* fileName);
 	~x86PeFile();
 
 public:
 	BOOL Init(TCHAR* fileName);	//因为需要在switch外面声明 条件里面赋值, 所以新弄一个函数
 	QWORD getImageBase();
+	LPCWSTR getImageBase(DWORD);
 
 private:
 	BOOL ReadPeFile(TCHAR* wszfileName);
@@ -39,6 +40,7 @@ private:
 
 
 private:
+	TCHAR	*pszBaseNum;
 	QWORD	m_fileSize;
 	LLPVOID m_pFileBuffer;
 	BOOL	mb_isX64;

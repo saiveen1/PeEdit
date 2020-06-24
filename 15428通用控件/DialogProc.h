@@ -19,6 +19,8 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lP
 //h 使用前置声明 .cpp 声明全局变量 需要用到的地方
 //相互包含的情况  需要使用前置声明
 
+extern FileMethod *pFile;
+extern x86PeFile *pFileInfo;
 
 
 
