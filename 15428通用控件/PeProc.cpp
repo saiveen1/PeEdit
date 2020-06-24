@@ -63,8 +63,6 @@ INT_PTR CALLBACK PeProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam
 
 	case WM_CLOSE:
 		EndDialog(hwndDlg, 0);
-		delete pFile;
-		delete pFileInfo;
 		return TRUE;
 
 	default:

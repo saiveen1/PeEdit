@@ -27,6 +27,7 @@
 
 extern HINSTANCE hInst;
 
+
 #include <commctrl.h>			
 #pragma comment(lib,"comctl32.lib")		
 

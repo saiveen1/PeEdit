@@ -1,7 +1,11 @@
 #include "DialogProc.h"
 #include "ListControl.h"
 #include "15428Í¨ÓÃ¿Ø¼þ.h"
+#include "x86PeFile.h"
 //static WCHAR szListTitle[] = L"Process";
+
+extern FileMethod *pFile;
+extern x86PeFile *pFileInfo;
 
 INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -51,6 +55,8 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lP
 	}
 
 	case WM_CLOSE:
+		delete pFile;
+		delete pFileInfo;
 		EndDialog(hwndDlg, 0);
 		return TRUE;
 

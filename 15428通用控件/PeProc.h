@@ -1,10 +1,9 @@
 #ifndef __PEPROC_H_
 #define __PEPROC_H_
-#include "framework.h"
+#include <windows.h>
+#include "iostream"
+#include "namedefine.h"
 #include "x86PeFile.h"
-
-extern FileMethod *pFile; 
-extern x86PeFile *pFileInfo;
 
 #endif // _DEBUG
 
