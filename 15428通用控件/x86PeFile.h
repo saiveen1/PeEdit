@@ -12,8 +12,6 @@
 #include "namedefine.h"
 #include "charTransfer.h"
 
-#endif
-
 #define SIZE_OF_SECTION 0x28
 #define SIZE_OF_SECTION_NAME 0x8
 #define SIZE_OF_DOSHEADER 0x40
@@ -24,18 +22,18 @@
 #define MAX_CHAR_ARR 20
 #define TODO 0
 
-
-
-
 class x86PeFile
 {
 public:
 	x86PeFile();
-	x86PeFile(TCHAR *fileName);
+	x86PeFile(TCHAR* fileName);
 	~x86PeFile();
 
+public:
+	QWORD getImageBase();
+
 private:
-	BOOL ReadPeFile(TCHAR *wszfileName);
+	BOOL ReadPeFile(TCHAR* wszfileName);
 	VOID InitializeBasicInfo(LLPVOID pFileBuffer);
 
 
@@ -62,16 +60,6 @@ private:
 	PIMAGE_SECTION_HEADER pSectionHeader = NULL;
 };
 
-x86PeFile::x86PeFile()
-{
-}
 
-inline x86PeFile::x86PeFile(TCHAR * fileName)
-{
-	ReadPeFile(fileName);
-	InitializeBasicInfo(m_pFileBuffer);
-}
+#endif
 
-x86PeFile::~x86PeFile()
-{
-}

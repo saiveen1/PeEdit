@@ -1,4 +1,24 @@
 #include "x86PeFile.h"
+#pragma warning(disable:4996)
+x86PeFile::x86PeFile()
+{
+}
+
+x86PeFile::x86PeFile(TCHAR* fileName)
+{
+	ReadPeFile(fileName);
+	InitializeBasicInfo(m_pFileBuffer);
+}
+
+x86PeFile::~x86PeFile()
+{
+}
+
+
+QWORD x86PeFile::getImageBase()
+{
+	return imageBase;
+}
 
 
 
@@ -9,6 +29,7 @@ BOOL x86PeFile::ReadPeFile(TCHAR *wszFileName)
 
 	LPSTR szFileName = wchar2char(wszFileName);
 	//Open file.
+
 	if (!(pFile = fopen(szFileName, "rb")))
 	{
 		MessageBox(0, TEXT("Can't open the executable file"), TEXT("Error"), MB_OK);
@@ -41,19 +62,20 @@ BOOL x86PeFile::ReadPeFile(TCHAR *wszFileName)
 
 	m_pFileBuffer = pFileBuffer;
 	fclose(pFile);
+	return TRUE;
 }
 
 VOID x86PeFile::InitializeBasicInfo(LLPVOID pFileBuffer)
 {
-	mb_isX64 == FALSE;
-	pDosHeader = (PIMAGE_DOS_HEADER)((DWORD)pFileBuffer);
-	pNTheaders = (PIMAGE_NT_HEADERS)((DWORD)pDosHeader + pDosHeader->e_lfanew);
-	pFileHeader = (PIMAGE_FILE_HEADER)((DWORD)pDosHeader + pDosHeader->e_lfanew + 0x4);
+	mb_isX64 = FALSE;
+	pDosHeader = (PIMAGE_DOS_HEADER)((QWORD)pFileBuffer);
+	pNTheaders = (PIMAGE_NT_HEADERS)((QWORD)pDosHeader + pDosHeader->e_lfanew);
+	pFileHeader = (PIMAGE_FILE_HEADER)((QWORD)pDosHeader + pDosHeader->e_lfanew + 0x4);
 	if (pFileHeader->Machine == IMAGE_FILE_MACHINE_AMD64 || pFileHeader->Machine == IMAGE_FILE_MACHINE_IA64)
-		mb_isX64 == TRUE;
+		mb_isX64 = TRUE;
 
-	pOptionalHeader = (PIMAGE_OPTIONAL_HEADER)((DWORD)pFileHeader + 0x14);
-	pSectionHeader = (PIMAGE_SECTION_HEADER)((DWORD)pOptionalHeader + pFileHeader->SizeOfOptionalHeader);
+	pOptionalHeader = (PIMAGE_OPTIONAL_HEADER)((QWORD)pFileHeader + 0x14);
+	pSectionHeader = (PIMAGE_SECTION_HEADER)((QWORD)pOptionalHeader + pFileHeader->SizeOfOptionalHeader);
 
 	numOfSections = pFileHeader->NumberOfSections;
 	sizeOfOptionalHeader = pFileHeader->SizeOfOptionalHeader;
