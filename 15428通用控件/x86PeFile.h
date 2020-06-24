@@ -30,6 +30,7 @@ public:
 	~x86PeFile();
 
 public:
+	BOOL Init(TCHAR* fileName);	//因为需要在switch外面声明 条件里面赋值, 所以新弄一个函数
 	QWORD getImageBase();
 
 private:

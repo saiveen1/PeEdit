@@ -15,6 +15,14 @@ x86PeFile::~x86PeFile()
 }
 
 
+BOOL x86PeFile::Init(TCHAR* fileName)
+{
+	if (!ReadPeFile(fileName))
+		return FALSE;
+	InitializeBasicInfo(m_pFileBuffer);
+	return FALSE;
+}
+
 QWORD x86PeFile::getImageBase()
 {
 	return imageBase;

@@ -5,7 +5,7 @@ FileMethod *pFile = new FileMethod;	//²»¿ÉÒÔ·ÅÔÚcaseÀïÃæÒòÎª±àÒëÆ÷»á¼ì²é Èç¹ûÖ±½
 //¾¡Á¿²»ÒªÔÚ¹Ø¼ü´ÊÄÚÉùÃ÷ÐÂ±äÁ¿ ³Ô¹ýºÃ¶à¿÷ÁË
 //²»ÄÜÉùÃ÷ÔÚº¯ÊýÀïÃæÊÇÒòÎªÊÇ»Øµ÷º¯Êý²»¶ÏÉêÇë¿Õ¼ä»á±Àµô, ËùÒÔ»¹ÊÇÉè³ÉÈ«¾Ö
 //ÁíÒ»·½ÃæÊÇ×îºócloseµÄÊ±ºòÕÒ²»µ½ÉùÃ÷Ã»·¨delete
-
+x86PeFile* pFileInfo = new x86PeFile;
 INT_PTR CALLBACK PeProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 
@@ -17,8 +17,8 @@ INT_PTR CALLBACK PeProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam
 		{
 			TCHAR* wszFileName = pFile->GetFileName(hwndDlg);
 			MessageBox(hwndDlg, wszFileName, L"PEEDIT", MB_OK);
-			x86PeFile* pPeInfo = new x86PeFile(wszFileName);
-			DbgPrintf("%lld", pPeInfo->getImageBase());
+			pFileInfo->Init(wszFileName);
+			DbgPrintf("%lld", pFileInfo->getImageBase());
 		}
 		return TRUE;
 	}
@@ -63,7 +63,7 @@ INT_PTR CALLBACK PeProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam
 	case WM_CLOSE:
 		EndDialog(hwndDlg, 0);
 		delete pFile;
-		delete pPeInfo;
+		delete pFileInfo;
 		return TRUE;
 
 	default:
