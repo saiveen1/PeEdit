@@ -1,5 +1,5 @@
-#ifndef __LISTCONTROL_H_
-#define __LISTCONTROL_H_
+#ifndef __CONTROLS_H_
+#define __CONTROLS_H_
 
 
 #include "framework.h"
@@ -27,5 +27,5 @@ VOID SetModulesListItem(HWND hwndOwner, HWND hwndListProcess);
 
 
 
-#endif // !LISTCONTROL_H
+#endif // !controls_H
  

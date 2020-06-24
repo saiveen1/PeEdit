@@ -158,7 +158,7 @@
     <ClInclude Include="Enum.h" />
     <ClInclude Include="FileMethod.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="ListControl.h" />
+    <ClInclude Include="controls.h" />
     <ClInclude Include="namedefine.h" />
     <ClInclude Include="x86PeFile.h" />
     <ClInclude Include="PeProc.h" />
@@ -173,7 +173,7 @@
     <ClCompile Include="DialogProc.cpp" />
     <ClCompile Include="Enum.cpp" />
     <ClCompile Include="FileMethod.cpp" />
-    <ClCompile Include="ListControl.cpp" />
+    <ClCompile Include="controls.cpp" />
     <ClCompile Include="x86PeFile.cpp" />
     <ClCompile Include="PeProc.cpp" />
     <ClCompile Include="Transfer.cpp" />

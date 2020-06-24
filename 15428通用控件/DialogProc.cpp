@@ -1,5 +1,5 @@
 #include "DialogProc.h"
-#include "ListControl.h"
+#include "controls.h"
 #include "15428Í¨ÓÃ¿Ø¼þ.h"
 #include "x86PeFile.h"
 //static WCHAR szListTitle[] = L"Process";

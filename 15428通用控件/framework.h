@@ -21,7 +21,7 @@
 #include "charTransfer.h"
 #include "Resource.h"
 #include "DialogProc.h"
-#include "ListControl.h"
+#include "controls.h"
 #include "PeProc.h"
 #include "FileMethod.h"
 

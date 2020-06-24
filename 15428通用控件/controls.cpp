@@ -1,4 +1,4 @@
-#include "ListControl.h"
+#include "controls.h"
 static const TCHAR *pszListTitleArr[4] =
 {
 	L"Process",
