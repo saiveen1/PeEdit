@@ -11,3 +11,7 @@ void HexToStr(int64_t qwSrc, TCHAR *wszDest);
 int  Str2Int(const char *nptr);
 
 long  Str2Long(const char *nptr);
+
+wchar_t * char2wchar(const char* cchar);
+
+char * wchar2char(const wchar_t* wchar);

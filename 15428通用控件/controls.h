@@ -2,10 +2,15 @@
 #define __CONTROLS_H_
 
 
-#include "framework.h"
 #include "Enum.h"
 #include "Transfer.h"
 #include "shlwapi.h"
+#include "resource.h"
+#include "Transfer.h"
+
+#include <commctrl.h>			
+#pragma comment(lib,"comctl32.lib")		
+
 #define MAX_MODULES			888
 #define MAX_PROCESSES		888
 #define MAX_LENGTH_IMAGE	0x10
@@ -25,6 +30,7 @@ VOID InitModuleList(HWND hwndOwner);
 
 VOID SetModulesListItem(HWND hwndOwner, HWND hwndListProcess);
 
+VOID SetPeFileBaseInfo(HWND hwndOwner);
 
 
 #endif // !controls_H

@@ -30,9 +30,6 @@
     <ClInclude Include="DialogProc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="charTransfer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Enum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -63,9 +60,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DialogProc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="charTransfer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Enum.cpp">

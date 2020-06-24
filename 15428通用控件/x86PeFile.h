@@ -10,7 +10,7 @@
 #include <conio.h>
 #include "iostream"
 #include "namedefine.h"
-#include "charTransfer.h"
+#include "transfer.h"
 
 #define SIZE_OF_SECTION 0x28
 #define SIZE_OF_SECTION_NAME 0x8

@@ -152,7 +152,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="15428通用控件.h" />
-    <ClInclude Include="charTransfer.h" />
     <ClInclude Include="debugPrintf.h" />
     <ClInclude Include="DialogProc.h" />
     <ClInclude Include="Enum.h" />
@@ -168,7 +167,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="15428通用控件.cpp" />
-    <ClCompile Include="charTransfer.cpp" />
     <ClCompile Include="debugPrintf.cpp" />
     <ClCompile Include="DialogProc.cpp" />
     <ClCompile Include="Enum.cpp" />

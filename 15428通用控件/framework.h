@@ -10,26 +10,7 @@
 // Windows Header Files
 #include <windows.h>
 // C RunTime Header Files
-#include <stdlib.h>
-#include <malloc.h>
-#include <memory.h>
-#include <tchar.h>
-#include <stdint.h>
-#include <TlHelp32.h>
-
-#include "debugPrintf.h"
-#include "charTransfer.h"
-#include "Resource.h"
 #include "DialogProc.h"
-#include "controls.h"
-#include "PeProc.h"
-#include "FileMethod.h"
-
-extern HINSTANCE hInst;
-
-
-#include <commctrl.h>			
-#pragma comment(lib,"comctl32.lib")		
 
 
 //文件操作相关

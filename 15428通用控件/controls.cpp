@@ -207,3 +207,8 @@ VOID SetModulesListItem(HWND hWndOwner, HWND hwndListProcess)
 	}
 	delete arrModuleEntry;
 }
+
+VOID SetPeFileBaseInfo(HWND hwndOwner)
+{
+	//SetDlgItemText(hwndOwner, IDC_EDIT_IMAGEBASE, pFileInfo->getImageBase());
+}
