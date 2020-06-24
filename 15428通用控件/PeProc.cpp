@@ -1,6 +1,7 @@
 #include "PeProc.h"
 
-
+//624 1931应当用extern声明全局 关闭peedit窗口后对象被释放, 因为在函数外声明 所以再次打开窗口就没有此对象了.
+//delete 应当放在主窗口关闭 同理 PEinfo也是 后边考虑把x86file当作filemethod的子类
 FileMethod *pFile = new FileMethod;	//不可以放在case里面因为编译器会检查 如果直接default会导致对象没有初始化
 //尽量不要在关键词内声明新变量 吃过好多亏了
 //不能声明在函数里面是因为是回调函数不断申请空间会崩掉, 所以还是设成全局
