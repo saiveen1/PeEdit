@@ -3,12 +3,13 @@
 
 void Hex2Str(int64_t qwSrc, TCHAR *wszDest)
 {
-	//DWORD dwLow = (DWORD)qwSrc;
-	//int64_t i64Temp = (qwSrc & 0xffffffff00000000) / 0x10000000;
-	//DWORD dwHigh = (DWORD)i64Temp;
+	DWORD dwHigh = HIQWORD(qwSrc);
 
+		
 	DWORD dwTemp = HIQWORD(qwSrc) / 0x10;
 	DWORD dwDigits = 0;
+	if (dwHigh < 0x10 && dwHigh)
+		dwDigits = 1;
 	while (dwTemp)
 	{
 		dwTemp /= 0x10;

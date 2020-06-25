@@ -197,7 +197,7 @@ LPCWSTR x86PeFile::getMagic(DWORD)
 
 LPCWSTR x86PeFile::getSubSystem(DWORD)
 {
-	Hex2Str(pOptionalHeader32->Subsystem, pszBaseNum);
+	Hex2Str(pOptionalHeader->Subsystem, pszBaseNum);
 	return pszBaseNum;
 }
 
