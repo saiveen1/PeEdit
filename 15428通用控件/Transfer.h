@@ -5,6 +5,8 @@
 
 #include <windows.h>
 #include <stdint.h>
+#include "namedefine.h"
+
 
 void Hex2Str(int64_t qwSrc, TCHAR *wszDest);
 

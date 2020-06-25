@@ -22,14 +22,12 @@ BOOL x86PeFile::Init(TCHAR* fileName)
 
 QWORD x86PeFile::getImageBase()
 {
-	return imageBase;
+	return pOptionalHeader->ImageBase;
 }
-
-
 
 LPCWSTR x86PeFile::getImageBase(DWORD)
 {
-	Hex2Str(imageBase, pszBaseNum);
+	Hex2Str(pOptionalHeader->ImageBase, pszBaseNum);
 	return pszBaseNum;
 }
 
@@ -78,24 +76,66 @@ BOOL x86PeFile::ReadPeFile(TCHAR *wszFileName)
 
 VOID x86PeFile::InitializeBasicInfo(LLPVOID pFileBuffer)
 {
-	mb_isX64 = FALSE;
 	pDosHeader = (PIMAGE_DOS_HEADER)((QWORD)pFileBuffer);
-	pNTheaders = (PIMAGE_NT_HEADERS)((QWORD)pDosHeader + pDosHeader->e_lfanew);
+	//pNTheaders = (PIMAGE_NT_HEADERS)((QWORD)pDosHeader + pDosHeader->e_lfanew);
 	pFileHeader = (PIMAGE_FILE_HEADER)((QWORD)pDosHeader + pDosHeader->e_lfanew + 0x4);
-	if (pFileHeader->Machine == IMAGE_FILE_MACHINE_AMD64 || pFileHeader->Machine == IMAGE_FILE_MACHINE_IA64)
+
+
+	if (pFileHeader->Machine != IMAGE_FILE_MACHINE_AMD64 || pFileHeader->Machine != IMAGE_FILE_MACHINE_IA64)
+	{
+		mb_isX64 = FALSE;
+		pOptionalHeader32 = (PIMAGE_OPTIONAL_HEADER32)pOptionalHeader;
+		pSectionHeader = (PIMAGE_SECTION_HEADER)((QWORD)pOptionalHeader + pFileHeader->SizeOfOptionalHeader);
+
+		/* 花了几个小时的极品脑残之作, 当作复习指针了....
+		baseOfData = LOQWORD(pOptionalHeader->ImageBase);
+		pOptionalHeader->ImageBase = HIQWORD(pOptionalHeader->ImageBase);
+
+		//真的是个弱智啊, 这些东西做的不就是memcpy吗.........
+		//留着以示警戒, 用指针以为自己很帅.....
+		LLPVOID pX86 = (LLPVOID)(&(pOptionalHeader->SizeOfStackReserve));
+		//QWORD x86DataDir = (*(pX86 + 3));
+		//QWORD qwArrTemp[0xD] = { 0 };
+		//for (QWORD i = 0; i < 0x10; i++)
+		//{
+		//	QWORD x86DataDir = (*(pX86 + 3 + i));	//x86实际SizeOfHeapCommit是第一个DataDirectory
+		//	if (i > 1)
+		//		x86DataDir = qwArrTemp[i - 2];		//存原始值 不然后面丢失
+		//	qwArrTemp[i] = *((LLPVOID)((&(pOptionalHeader->DataDirectory[i]))));
+		//	pOptionalHeader->DataDirectory[i].VirtualAddress = LOQWORD(x86DataDir);
+		//	pOptionalHeader->DataDirectory[i].Size = HIQWORD(x86DataDir);
+		//}
+		LLPVOID pFirSectionLoss = new QWORD;
+
+		//是啊 用了memcpy 突然想起来 强转不就好了吗.......................................
+		//大概是脑子有病吧
+		memcpy(pOptionalHeader->DataDirectory, pX86 + 3, SIZE_OF_DATADIRCTORY * 0x10);
+		//memcpy(pSectionHeader, pFirSectionLoss, sizeof(QWORD));
+
+		QWORD qwArrTemp[0x3] = { 0 };
+		for (QWORD i = 0; i < 3; i++)
+		{
+			qwArrTemp[i] = *pX86;
+			pX86++;
+		}
+
+		pOptionalHeader->SizeOfStackReserve = LOQWORD(qwArrTemp[0]);
+		pOptionalHeader->SizeOfStackCommit = HIQWORD(qwArrTemp[0]);
+
+		pOptionalHeader->SizeOfHeapReserve = LOQWORD(qwArrTemp[1]);
+		pOptionalHeader->SizeOfHeapCommit = HIQWORD(qwArrTemp[1]);
+
+		pOptionalHeader->LoaderFlags = LOQWORD(qwArrTemp[2]);
+		pOptionalHeader->NumberOfRvaAndSizes = HIQWORD(qwArrTemp[2]);
+		delete pFirSectionLoss;
+	}
+	*/
+	}
+	else
+	{
 		mb_isX64 = TRUE;
-
-	pOptionalHeader = (PIMAGE_OPTIONAL_HEADER)((QWORD)pFileHeader + 0x14);
-	pSectionHeader = (PIMAGE_SECTION_HEADER)((QWORD)pOptionalHeader + pFileHeader->SizeOfOptionalHeader);
-
-	numOfSections = pFileHeader->NumberOfSections;
-	sizeOfOptionalHeader = pFileHeader->SizeOfOptionalHeader;
-	sizeOfHeaders = pOptionalHeader->SizeOfHeaders;
-	sizeOfImage = pOptionalHeader->SizeOfImage;
-	addressEntryPoint = pOptionalHeader->AddressOfEntryPoint;
-	imageBase = pOptionalHeader->ImageBase;
-	sectionAlignment = pOptionalHeader->SectionAlignment;
-	numOfRvaAndSizes = pOptionalHeader->NumberOfRvaAndSizes;
-	fileAlignment = pOptionalHeader->FileAlignment;
+		pOptionalHeader = (PIMAGE_OPTIONAL_HEADER64)((QWORD)pFileHeader + 0x14);
+		pSectionHeader = (PIMAGE_SECTION_HEADER)((QWORD)pOptionalHeader + pFileHeader->SizeOfOptionalHeader);
+	}
 }
 

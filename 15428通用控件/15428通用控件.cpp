@@ -4,8 +4,6 @@
 #include "framework.h"
 #include "15428通用控件.h"
 
-
-
 #define MAX_LOADSTRING 100
 
 // Global Variables:
@@ -19,7 +17,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
-
 	////告诉编译器不必检测不使用的变量
 	//UNREFERENCED_PARAMETER(hPrevInstance);
 	//UNREFERENCED_PARAMETER(lpCmdLine);

@@ -8,6 +8,7 @@
 #include <algorithm>	//max min
 #include <time.h>
 #include <conio.h>
+#include <minwindef.h>
 #include "iostream"
 #include "namedefine.h"
 #include "transfer.h"
@@ -19,6 +20,7 @@
 #define SIZE_OF_EXPORTDIRECTORY 0x28
 #define SIZE_OF_IMPORT_DESCRIPTOR sizeof(IMAGE_IMPORT_DESCRIPTOR)
 #define SIZE_OF_RESOURCE_DIRECTORY sizeof(IMAGE_RESOURCE_DIRECTORY)
+#define SIZE_OF_DATADIRCTORY sizeof(IMAGE_DATA_DIRECTORY)
 #define LENGTH_QWORD 0x10
 #define MAX_CHAR_ARR 20
 #define TODO 0
@@ -46,20 +48,23 @@ private:
 	BOOL	mb_isX64;
 
 private:
-	QWORD sizeOfOptionalHeader;	//In FileHeader
-	QWORD sizeOfHeaders;		//In OptionalHeader
-	QWORD sizeOfImage;
-	QWORD numOfSections;		//FileHeader
-	QWORD addressEntryPoint;
-	QWORD imageBase;
-	QWORD fileAlignment;
-	QWORD sectionAlignment;
-	QWORD numOfRvaAndSizes;
+	//QWORD sizeOfOptionalHeader;	//In FileHeader
+	//QWORD sizeOfHeaders;		//In OptionalHeader
+	//QWORD sizeOfImage;
+	//QWORD numOfSections;		//FileHeader
+	//QWORD addressEntryPoint;
+	//QWORD imageBase;
+	//QWORD fileAlignment;
+	//QWORD sectionAlignment;
+	//QWORD numOfRvaAndSizes;
+	//QWORD baseOfData;
+	//QWORD baseOfCode;
 
+	DWORD baseOfData;
 	PIMAGE_DOS_HEADER pDosHeader = NULL;
-	PIMAGE_NT_HEADERS pNTheaders = NULL;
 	PIMAGE_FILE_HEADER pFileHeader = NULL;
-	PIMAGE_OPTIONAL_HEADER pOptionalHeader = NULL;
+	PIMAGE_OPTIONAL_HEADER64 pOptionalHeader = NULL;
+	PIMAGE_OPTIONAL_HEADER32 pOptionalHeader32 = NULL;
 	PIMAGE_SECTION_HEADER pSectionHeader = NULL;
 };
 
