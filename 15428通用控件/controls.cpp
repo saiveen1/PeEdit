@@ -211,5 +211,20 @@ VOID SetModulesListItem(HWND hWndOwner, HWND hwndListProcess)
 
 VOID SetPeFileBaseInfo(HWND hwndOwner)
 {
+	SetDlgItemText(hwndOwner, IDC_EDIT_ENTRYPOINT, pFileInfo->getEntryPoint(GETWCHAR));
 	SetDlgItemText(hwndOwner, IDC_EDIT_IMAGEBASE, pFileInfo->getImageBase(GETWCHAR));
+	SetDlgItemText(hwndOwner, IDC_EDIT_SizeOfImage, pFileInfo->getSizeOFImage(GETWCHAR));
+	SetDlgItemText(hwndOwner, IDC_EDIT_BASECODE, pFileInfo->getBaseOfCode(GETWCHAR));
+	SetDlgItemText(hwndOwner, IDC_EDIT_BASEOFDATA, pFileInfo->getBaseOfData(GETWCHAR));
+	SetDlgItemText(hwndOwner, IDC_EDIT_SECTIONALIGNMENT, pFileInfo->getSectionAlignment(GETWCHAR));
+	SetDlgItemText(hwndOwner, IDC_EDIT_FILEALIGNMENT, pFileInfo->getFileAlignment(GETWCHAR));
+	SetDlgItemText(hwndOwner, IDC_EDIT_MAGIC, pFileInfo->getMagic(GETWCHAR));
+	SetDlgItemText(hwndOwner, IDC_EDIT_SUBSYSTEM, pFileInfo->getSubSystem(GETWCHAR));
+	SetDlgItemText(hwndOwner, IDC_EDIT_NUMOFSECTIONS, pFileInfo->getNumberOfSections(GETWCHAR));
+	SetDlgItemText(hwndOwner, IDC_EDIT_TIMEDATASTAMP, pFileInfo->getTimeDateStamp(GETWCHAR));
+	SetDlgItemText(hwndOwner, IDC_EDIT_SIZEOFHEADERS, pFileInfo->getSizeOfHeaders(GETWCHAR));
+	SetDlgItemText(hwndOwner, IDC_EDIT_CHARACTERISTICS, pFileInfo->getCharacteristics(GETWCHAR));
+	SetDlgItemText(hwndOwner, IDC_EDIT_CHECKSUM, pFileInfo->getCheckSum(GETWCHAR));
+	SetDlgItemText(hwndOwner, IDC_EDIT_SIZEOFOPTIONALHEADER, pFileInfo->getSizeOfOptionalHeader(GETWCHAR));
+	SetDlgItemText(hwndOwner, IDC_EDIT_NUMOFRVAANDSIZES, pFileInfo->getNumOfRvaAndSizes(GETWCHAR));
 }

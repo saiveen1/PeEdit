@@ -1,34 +1,16 @@
 #include "x86PeFile.h"
 #pragma warning(disable:4996)
+
+TCHAR x64BaseOfData[] = TEXT("None");
+
 x86PeFile::x86PeFile() 
 {
 	pszBaseNum = new TCHAR[LENGTH_QWORD]{ 0 };
 }
 
-
 x86PeFile::~x86PeFile()
 {
 	delete pszBaseNum;
-}
-
-
-BOOL x86PeFile::Init(TCHAR* fileName)
-{
-	if (!ReadPeFile(fileName))
-		return FALSE;
-	InitializeBasicInfo(m_pFileBuffer);
-	return FALSE;
-}
-
-QWORD x86PeFile::getImageBase()
-{
-	return pOptionalHeader->ImageBase;
-}
-
-LPCWSTR x86PeFile::getImageBase(DWORD)
-{
-	Hex2Str(pOptionalHeader->ImageBase, pszBaseNum);
-	return pszBaseNum;
 }
 
 BOOL x86PeFile::ReadPeFile(TCHAR *wszFileName)
@@ -51,7 +33,7 @@ BOOL x86PeFile::ReadPeFile(TCHAR *wszFileName)
 
 	//Allocate memory.
 	//写到sectionAllocate才发现这个问题 编译器会自动在分配空间的后面+0x30个空间
-	if (!(pFileBuffer = new QWORD[m_fileSize]{0}))
+	if (!(pFileBuffer = new QWORD[m_fileSize]{ 0 }))
 	{
 		MessageBox(0, TEXT("Open file failed. No enough memory."), TEXT("Error"), MB_OK);
 		fclose(pFile);
@@ -74,14 +56,27 @@ BOOL x86PeFile::ReadPeFile(TCHAR *wszFileName)
 	return TRUE;
 }
 
+BOOL x86PeFile::Init(TCHAR* fileName)
+{
+	if (!ReadPeFile(fileName))
+		return FALSE;
+	InitializeBasicInfo(m_pFileBuffer);
+	return FALSE;
+}
+
 VOID x86PeFile::InitializeBasicInfo(LLPVOID pFileBuffer)
 {
 	pDosHeader = (PIMAGE_DOS_HEADER)((QWORD)pFileBuffer);
 	//pNTheaders = (PIMAGE_NT_HEADERS)((QWORD)pDosHeader + pDosHeader->e_lfanew);
 	pFileHeader = (PIMAGE_FILE_HEADER)((QWORD)pDosHeader + pDosHeader->e_lfanew + 0x4);
+	pOptionalHeader = (PIMAGE_OPTIONAL_HEADER64)((QWORD)pFileHeader + 0x14);
 
-
-	if (pFileHeader->Machine != IMAGE_FILE_MACHINE_AMD64 || pFileHeader->Machine != IMAGE_FILE_MACHINE_IA64)
+	if (pFileHeader->Machine == IMAGE_FILE_MACHINE_AMD64 || pFileHeader->Machine == IMAGE_FILE_MACHINE_IA64)
+	{
+		mb_isX64 = TRUE;
+		pSectionHeader = (PIMAGE_SECTION_HEADER)((QWORD)pOptionalHeader + pFileHeader->SizeOfOptionalHeader);
+	}
+	else
 	{
 		mb_isX64 = FALSE;
 		pOptionalHeader32 = (PIMAGE_OPTIONAL_HEADER32)pOptionalHeader;
@@ -131,11 +126,121 @@ VOID x86PeFile::InitializeBasicInfo(LLPVOID pFileBuffer)
 	}
 	*/
 	}
+}
+
+
+
+
+
+QWORD x86PeFile::getImageBase()
+{
+	return pOptionalHeader->ImageBase;
+}
+
+LPCWSTR x86PeFile::getImageBase(DWORD)
+{
+	if (mb_isX64)
+	{
+		Hex2Str(pOptionalHeader->ImageBase, pszBaseNum);
+		return pszBaseNum;
+	}
 	else
 	{
-		mb_isX64 = TRUE;
-		pOptionalHeader = (PIMAGE_OPTIONAL_HEADER64)((QWORD)pFileHeader + 0x14);
-		pSectionHeader = (PIMAGE_SECTION_HEADER)((QWORD)pOptionalHeader + pFileHeader->SizeOfOptionalHeader);
+		Hex2Str(pOptionalHeader32->ImageBase, pszBaseNum);
+		return pszBaseNum;
 	}
 }
+
+LPCWSTR x86PeFile::getEntryPoint(DWORD)
+{
+	Hex2Str(pOptionalHeader->AddressOfEntryPoint, pszBaseNum);
+	return pszBaseNum;
+}
+
+LPCWSTR x86PeFile::getSizeOFImage(DWORD)
+{
+	Hex2Str(pOptionalHeader->SizeOfImage, pszBaseNum);
+	return pszBaseNum;
+}
+
+LPCWSTR x86PeFile::getBaseOfCode(DWORD)
+{
+	Hex2Str(pOptionalHeader->BaseOfCode, pszBaseNum);
+	return pszBaseNum;
+}
+
+LPCWSTR x86PeFile::getBaseOfData(DWORD)
+{
+	if (mb_isX64)
+		return x64BaseOfData;
+	Hex2Str(pOptionalHeader32->BaseOfData, pszBaseNum);
+	return pszBaseNum;
+}
+
+LPCWSTR x86PeFile::getSectionAlignment(DWORD)
+{
+	Hex2Str(pOptionalHeader->SectionAlignment, pszBaseNum);
+	return pszBaseNum;
+}
+
+LPCWSTR x86PeFile::getFileAlignment(DWORD)
+{
+	Hex2Str(pOptionalHeader->FileAlignment, pszBaseNum);
+	return pszBaseNum;
+}
+
+LPCWSTR x86PeFile::getMagic(DWORD)
+{
+	Hex2Str(pOptionalHeader->Magic, pszBaseNum);
+	return pszBaseNum;
+}
+
+LPCWSTR x86PeFile::getSubSystem(DWORD)
+{
+	Hex2Str(pOptionalHeader32->Subsystem, pszBaseNum);
+	return pszBaseNum;
+}
+
+LPCWSTR x86PeFile::getNumberOfSections(DWORD)
+{
+	Hex2Str(pFileHeader->NumberOfSections, pszBaseNum);
+	return pszBaseNum;
+}
+
+LPCWSTR x86PeFile::getTimeDateStamp(DWORD)
+{
+	Hex2Str(pFileHeader->TimeDateStamp, pszBaseNum);
+	return pszBaseNum;
+}
+
+LPCWSTR x86PeFile::getSizeOfHeaders(DWORD)
+{
+	Hex2Str(pOptionalHeader->SizeOfHeaders, pszBaseNum);
+	return pszBaseNum;
+}
+
+LPCWSTR x86PeFile::getCharacteristics(DWORD)
+{
+	Hex2Str(pFileHeader->Characteristics, pszBaseNum);
+	return pszBaseNum;
+}
+
+LPCWSTR x86PeFile::getCheckSum(DWORD)
+{
+	Hex2Str(pOptionalHeader->CheckSum, pszBaseNum);
+	return pszBaseNum;
+}
+
+LPCWSTR x86PeFile::getSizeOfOptionalHeader(DWORD)
+{
+	Hex2Str(pFileHeader->SizeOfOptionalHeader, pszBaseNum);
+	return pszBaseNum;
+}
+
+LPCWSTR x86PeFile::getNumOfRvaAndSizes(DWORD)
+{
+	Hex2Str(pOptionalHeader->NumberOfRvaAndSizes, pszBaseNum);
+	return pszBaseNum;
+}
+
 

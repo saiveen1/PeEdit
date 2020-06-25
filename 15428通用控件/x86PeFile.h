@@ -25,6 +25,8 @@
 #define MAX_CHAR_ARR 20
 #define TODO 0
 
+
+
 class x86PeFile
 {
 public:
@@ -35,6 +37,21 @@ public:
 	BOOL Init(TCHAR* fileName);	//因为需要在switch外面声明 条件里面赋值, 所以新弄一个函数
 	QWORD getImageBase();
 	LPCWSTR getImageBase(DWORD);
+	LPCWSTR getEntryPoint(DWORD);
+	LPCWSTR getSizeOFImage(DWORD);
+	LPCWSTR getBaseOfCode(DWORD);
+	LPCWSTR getBaseOfData(DWORD);
+	LPCWSTR getSectionAlignment(DWORD);
+	LPCWSTR getFileAlignment(DWORD);
+	LPCWSTR getMagic(DWORD);
+	LPCWSTR getSubSystem(DWORD);
+	LPCWSTR getNumberOfSections(DWORD);
+	LPCWSTR getTimeDateStamp(DWORD);
+	LPCWSTR getSizeOfHeaders(DWORD);
+	LPCWSTR getCharacteristics(DWORD);
+	LPCWSTR getCheckSum(DWORD);
+	LPCWSTR getSizeOfOptionalHeader(DWORD);
+	LPCWSTR getNumOfRvaAndSizes(DWORD);
 
 private:
 	BOOL ReadPeFile(TCHAR* wszfileName);
@@ -48,17 +65,6 @@ private:
 	BOOL	mb_isX64;
 
 private:
-	//QWORD sizeOfOptionalHeader;	//In FileHeader
-	//QWORD sizeOfHeaders;		//In OptionalHeader
-	//QWORD sizeOfImage;
-	//QWORD numOfSections;		//FileHeader
-	//QWORD addressEntryPoint;
-	//QWORD imageBase;
-	//QWORD fileAlignment;
-	//QWORD sectionAlignment;
-	//QWORD numOfRvaAndSizes;
-	//QWORD baseOfData;
-	//QWORD baseOfCode;
 
 	DWORD baseOfData;
 	PIMAGE_DOS_HEADER pDosHeader = NULL;
