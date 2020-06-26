@@ -62,7 +62,7 @@ VOID SetProcessListItem(HWND hwndOwner, HWND hListWnd)
 
 	MODULEENTRY32W pModuleEntryW = {0};	//new 自动计算内存, new 在类中会自动执行构造函数 不需要强制转换 可以重载
 	TCHAR szNameSysPrc[] = L"svchost.exe";	//不能放在循环里面 一直循环又导致栈空间不够
-	char szProcessID[0x10];
+	//char szProcessID[0x10];
 	//char szImageSize[MAX_LENGTH_IMAGE] = {0};
 	//WCHAR szImageBase[MAX_LENGTH_IMAGE * 2] = {0};	//最开始定义的10以为够了 但是64位有16位...导致出错 发现万事皆消息 缓冲区地址不够了也传个1f消息到windows 
 	while (arrProcessEntry[dwProcessCount].dwSize)
@@ -79,9 +79,8 @@ VOID SetProcessListItem(HWND hwndOwner, HWND hListWnd)
 		ListView_InsertItem(hListWnd, &vitem);
 
 
-		_ultoa_s(arrProcessEntry[dwProcessCount].th32ProcessID, szProcessID, __DECIMAL);
-		vitem.pszText = char2wchar(szProcessID);
-		DbgPrintf("%d %d\n", dwRow, dwColumn);
+		vitem.pszText = Hex2Str(arrProcessEntry[dwProcessCount].th32ProcessID,TYPDWORD);
+		//DbgPrintf("%d %d\n", dwRow, dwColumn);
 		vitem.iItem = dwRow;	//Row
 		vitem.iSubItem = dwColumn++;
 		ListView_SetItem(hListWnd, &vitem);	//第一列用Insert 后续用SetItem
