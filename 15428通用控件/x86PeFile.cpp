@@ -140,107 +140,89 @@ QWORD x86PeFile::getImageBase()
 LPCWSTR x86PeFile::getImageBase(DWORD)
 {
 	if (mb_isX64)
-	{
-		Hex2Str(pOptionalHeader->ImageBase, pszBaseNum);
-		return pszBaseNum;
-	}
+		return Hex2Str(pOptionalHeader->ImageBase, TYPQWORD);
 	else
-	{
-		Hex2Str(pOptionalHeader32->ImageBase, pszBaseNum);
-		return pszBaseNum;
-	}
+		return Hex2Str(pOptionalHeader32->ImageBase, TYPDWORD);
 }
 
 LPCWSTR x86PeFile::getEntryPoint(DWORD)
 {
-	Hex2Str(pOptionalHeader->AddressOfEntryPoint, pszBaseNum);
-	return pszBaseNum;
+	return Hex2Str(pOptionalHeader->AddressOfEntryPoint, TYPDWORD);
 }
 
 LPCWSTR x86PeFile::getSizeOFImage(DWORD)
 {
-	Hex2Str(pOptionalHeader->SizeOfImage, pszBaseNum);
-	return pszBaseNum;
+
+	return Hex2Str(pOptionalHeader->SizeOfImage, TYPDWORD);
 }
 
 LPCWSTR x86PeFile::getBaseOfCode(DWORD)
 {
-	Hex2Str(pOptionalHeader->BaseOfCode, pszBaseNum);
-	return pszBaseNum;
+	return Hex2Str(pOptionalHeader->BaseOfCode, TYPDWORD);
 }
 
 LPCWSTR x86PeFile::getBaseOfData(DWORD)
 {
 	if (mb_isX64)
 		return x64BaseOfData;
-	Hex2Str(pOptionalHeader32->BaseOfData, pszBaseNum);
-	return pszBaseNum;
+	return Hex2Str(pOptionalHeader32->BaseOfData, TYPDWORD);
 }
 
 LPCWSTR x86PeFile::getSectionAlignment(DWORD)
 {
-	Hex2Str(pOptionalHeader->SectionAlignment, pszBaseNum);
-	return pszBaseNum;
+	return Hex2Str(pOptionalHeader->SectionAlignment, TYPDWORD);
 }
 
 LPCWSTR x86PeFile::getFileAlignment(DWORD)
 {
-	Hex2Str(pOptionalHeader->FileAlignment, pszBaseNum);
-	return pszBaseNum;
+	return Hex2Str(pOptionalHeader->FileAlignment, TYPDWORD);
 }
 
 LPCWSTR x86PeFile::getMagic(DWORD)
 {
-	Hex2Str(pOptionalHeader->Magic, pszBaseNum);
-	return pszBaseNum;
+	return Hex2Str(pOptionalHeader->Magic, TYPWORD);
 }
 
 LPCWSTR x86PeFile::getSubSystem(DWORD)
 {
-	Hex2Str(pOptionalHeader->Subsystem, pszBaseNum);
-	return pszBaseNum;
+	return Hex2Str(pOptionalHeader->Subsystem, TYPWORD);
 }
 
 LPCWSTR x86PeFile::getNumberOfSections(DWORD)
 {
-	Hex2Str(pFileHeader->NumberOfSections, pszBaseNum);
-	return pszBaseNum;
+	return Hex2Str(pFileHeader->NumberOfSections, TYPWORD);
 }
 
 LPCWSTR x86PeFile::getTimeDateStamp(DWORD)
 {
-	Hex2Str(pFileHeader->TimeDateStamp, pszBaseNum);
-	return pszBaseNum;
+	return Hex2Str(pFileHeader->TimeDateStamp, TYPDWORD);
 }
 
 LPCWSTR x86PeFile::getSizeOfHeaders(DWORD)
 {
-	Hex2Str(pOptionalHeader->SizeOfHeaders, pszBaseNum);
-	return pszBaseNum;
+	return Hex2Str(pOptionalHeader->SizeOfHeaders, TYPDWORD);
 }
 
 LPCWSTR x86PeFile::getCharacteristics(DWORD)
 {
-	Hex2Str(pFileHeader->Characteristics, pszBaseNum);
-	return pszBaseNum;
+	return Hex2Str(pFileHeader->Characteristics, TYPWORD);
 }
 
 LPCWSTR x86PeFile::getCheckSum(DWORD)
 {
-	Hex2Str(pOptionalHeader->CheckSum, pszBaseNum);
-	return pszBaseNum;
+	return Hex2Str(pOptionalHeader->CheckSum, TYPDWORD);
 }
 
 LPCWSTR x86PeFile::getSizeOfOptionalHeader(DWORD)
 {
-	Hex2Str(pFileHeader->SizeOfOptionalHeader, pszBaseNum);
-	return pszBaseNum;
+	return Hex2Str(pFileHeader->SizeOfOptionalHeader, TYPWORD);
 }
 
 LPCWSTR x86PeFile::getNumOfRvaAndSizes(DWORD)
 {
-	Hex2Str(pOptionalHeader->NumberOfRvaAndSizes, pszBaseNum);
-	return pszBaseNum;
+	if(mb_isX64)
+		return Hex2Str(pOptionalHeader->NumberOfRvaAndSizes, TYPDWORD);
+	return Hex2Str(pOptionalHeader32->NumberOfRvaAndSizes, TYPDWORD);
 }
 
 

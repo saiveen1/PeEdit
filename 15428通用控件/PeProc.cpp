@@ -17,7 +17,7 @@ INT_PTR CALLBACK PeProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam
 	{
 		{
 			TCHAR* wszFileName = pFile->GetFileName(hwndDlg);
-			MessageBox(hwndDlg, wszFileName, L"PEEDIT", MB_OK);
+			//MessageBox(hwndDlg, wszFileName, L"PEEDIT", MB_OK);
 			pFileInfo->Init(wszFileName);
 			DbgPrintf("%lld", pFileInfo->getImageBase());
 			SetPeFileBaseInfo(hwndDlg);

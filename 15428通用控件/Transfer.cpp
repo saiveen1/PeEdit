@@ -1,22 +1,46 @@
 
 #include "Transfer.h"
 
-void Hex2Str(int64_t qwSrc, TCHAR *wszDest)
+//void Hex2Str(int64_t qwSrc, TCHAR *wszDest)
+//{
+//	DWORD dwLow = (DWORD)qwSrc;
+//	DWORD dwHigh = (DWORD)(qwSrc >> 32);
+//
+//	DWORD dwTemp = dwHigh;
+//	QWORD dwDigits = GetDigits(dwHigh);
+//
+//	wsprintfW(wszDest, TEXT("%lx"), dwHigh);
+//	wsprintfW((LPWSTR)((int64_t)wszDest + dwDigits * 2), TEXT("%lx"), dwLow);
+//}
+
+LPWSTR Hex2Str(int64_t qwSrc, int64_t srcType)
 {
 	DWORD dwHigh = HIQWORD(qwSrc);
+	DWORD dwLow = LOQWORD(qwSrc);
+	TCHAR *pwszDes = new WCHAR[srcType + 1]{0};
+	QWORD qwDigits = GetDigits(dwLow);
 
-		
-	DWORD dwTemp = HIQWORD(qwSrc) / 0x10;
-	DWORD dwDigits = 0;
-	if (dwHigh < 0x10 && dwHigh)
-		dwDigits = 1;
-	while (dwTemp)
+	LPCWSTR wszPad = TEXT("0000000000000000");
+	//wszDest = (TCHAR *)(TEXT("0000000000000000")); 这样会导致wszdest变为static
+	memcpy(pwszDes, wszPad, srcType * 2);
+
+	if (srcType == TYPQWORD || !srcType)
 	{
-		dwTemp /= 0x10;
-		dwDigits++;
+		qwDigits = GetDigits(dwHigh);
+		if (!srcType)
+		{
+			wsprintfW(pwszDes, TEXT("%lx"), dwHigh);
+			wsprintfW((LPWSTR)((int64_t)pwszDes + qwDigits * 2), TEXT("%lx"), dwLow);
+			return pwszDes;
+		}
+		wsprintfW((LPWSTR)((int64_t)pwszDes + qwDigits * 2 * (8 - qwDigits)), TEXT("%lX"), dwHigh);
+		qwDigits = GetDigits(dwLow);
+		wsprintfW((LPWSTR)((int64_t)pwszDes + 0x10 + 2 * (8 - qwDigits)), TEXT("%X"), LOQWORD(qwSrc));
+		return pwszDes;
 	}
-	wsprintfW(wszDest, TEXT("%lx"), HIQWORD(qwSrc));
-	wsprintfW((LPWSTR)((int64_t)wszDest + dwDigits * 2), TEXT("%lx"), LOQWORD(qwSrc));
+	//8代表16进制位数
+	wsprintfW((LPWSTR)((int64_t)pwszDes + 2 * (srcType - qwDigits)), TEXT("%X"), LOQWORD(qwSrc));
+	return pwszDes;
 }
 
 int  Str2Int(const char *nptr)
@@ -70,4 +94,15 @@ char * wchar2char(const wchar_t* wchar)
 	WideCharToMultiByte(CP_ACP, 0, wchar, (int)wcslen(wchar), m_char, (int)len, NULL, NULL);
 	m_char[len] = '\0';
 	return m_char;
+}
+
+QWORD GetDigits(QWORD qwSrc)
+{
+	QWORD dwDigits = 0;
+	while (qwSrc)
+	{
+		dwDigits++;
+		qwSrc /= 0x10;
+	}
+	return dwDigits;
 }

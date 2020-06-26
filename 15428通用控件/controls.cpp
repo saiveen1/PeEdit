@@ -63,8 +63,8 @@ VOID SetProcessListItem(HWND hwndOwner, HWND hListWnd)
 	MODULEENTRY32W pModuleEntryW = {0};	//new 自动计算内存, new 在类中会自动执行构造函数 不需要强制转换 可以重载
 	TCHAR szNameSysPrc[] = L"svchost.exe";	//不能放在循环里面 一直循环又导致栈空间不够
 	char szProcessID[0x10];
-	char szImageSize[MAX_LENGTH_IMAGE] = {0};
-	WCHAR szImageBase[MAX_LENGTH_IMAGE * 2] = {0};	//最开始定义的10以为够了 但是64位有16位...导致出错 发现万事皆消息 缓冲区地址不够了也传个1f消息到windows 
+	//char szImageSize[MAX_LENGTH_IMAGE] = {0};
+	//WCHAR szImageBase[MAX_LENGTH_IMAGE * 2] = {0};	//最开始定义的10以为够了 但是64位有16位...导致出错 发现万事皆消息 缓冲区地址不够了也传个1f消息到windows 
 	while (arrProcessEntry[dwProcessCount].dwSize)
 	{
 		if (!memcmp(szNameSysPrc, arrProcessEntry[dwProcessCount].szExeFile, 22))
@@ -96,14 +96,14 @@ VOID SetProcessListItem(HWND hwndOwner, HWND hListWnd)
 		else
 		{
 			int64_t i64ImageBase = (int64_t)(pModuleEntryW.modBaseAddr);	//由于是64位 所以还是逃不过自己写数字到字符串的转换....
-			Hex2Str(i64ImageBase, szImageBase);
-			vitem.pszText = szImageBase;
+
+			vitem.pszText = Hex2Str(i64ImageBase, TYPDEFAULT);
 			vitem.iItem = dwRow;
 			vitem.iSubItem = dwColumn++;
 			ListView_SetItem(hListWnd, &vitem);
 			
-			_ultoa_s((pModuleEntryW.modBaseSize), szImageSize, __HEX);
-			vitem.pszText = char2wchar(szImageSize);
+			//_ultoa_s((pModuleEntryW.modBaseSize), szImageSize, __HEX);
+			vitem.pszText = Hex2Str(pModuleEntryW.modBaseSize,TYPDEFAULT);
 			vitem.iItem = dwRow;
 			vitem.iSubItem = dwColumn++;
 			ListView_SetItem(hListWnd, &vitem);
@@ -178,8 +178,8 @@ VOID SetModulesListItem(HWND hWndOwner, HWND hwndListProcess)
 	DWORD dwColumn = 0;
 	MODULEENTRY32W *arrModuleEntry = new MODULEENTRY32W[MAX_MODULES]{ 0 };
 	memset(arrModuleEntry, 0, sizeof(MODULEENTRY32W)*MAX_MODULES);
-	char szImageSize[MAX_LENGTH_IMAGE] = { 0 };
-	TCHAR wszImageBase[MAX_LENGTH_IMAGE * 2] = { 0 };
+	//TCHAR wszImageSize[MAX_LENGTH_IMAGE * 2] = { 0 };
+	//TCHAR wszImageBase[MAX_LENGTH_IMAGE * 2] = { 0 };
 	EnumModules(dwPID, arrModuleEntry);
 	while (arrModuleEntry[dwCount].modBaseSize)
 	{
@@ -189,15 +189,16 @@ VOID SetModulesListItem(HWND hWndOwner, HWND hwndListProcess)
 		ListView_InsertItem(hwndListModules, &lvItem);
 
 		int64_t ImageBase = (int64_t)(arrModuleEntry[dwCount].modBaseAddr);
-		Hex2Str(ImageBase, wszImageBase);
+
 		lvItem.iItem = dwRow;
 		lvItem.iSubItem = dwColumn++;
-		lvItem.pszText = wszImageBase;
+		lvItem.pszText = Hex2Str(ImageBase, TYPDEFAULT);
 		ListView_SetItem(hwndListModules, &lvItem);
 
 		
-		_ultoa_s((arrModuleEntry[dwCount].modBaseSize), szImageSize, __HEX);
-		lvItem.pszText = char2wchar(szImageSize);
+
+		//_ultoa_s((arrModuleEntry[dwCount].modBaseSize), szImageSize, __HEX);
+		lvItem.pszText = Hex2Str((arrModuleEntry[dwCount].modBaseSize), TYPDEFAULT);
 		lvItem.iItem = dwRow;
 		lvItem.iSubItem = dwColumn;
 		ListView_SetItem(hwndListModules, &lvItem);
