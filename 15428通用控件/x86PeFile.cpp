@@ -128,10 +128,6 @@ VOID x86PeFile::InitializeBasicInfo(LLPVOID pFileBuffer)
 	}
 }
 
-
-
-
-
 QWORD x86PeFile::getImageBase()
 {
 	return pOptionalHeader->ImageBase;

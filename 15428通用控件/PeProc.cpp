@@ -9,8 +9,6 @@ FileMethod *pFile = new FileMethod;	//²»¿ÉÒÔ·ÅÔÚcaseÀïÃæÒòÎª±àÒëÆ÷»á¼ì²é Èç¹ûÖ±½
 x86PeFile* pFileInfo = new x86PeFile;
 INT_PTR CALLBACK PeProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
-
-
 	switch (message)
 	{
 	case WM_INITDIALOG:
