@@ -35,7 +35,8 @@ public:
 
 public:
 	BOOL Init(TCHAR* fileName);	//因为需要在switch外面声明 条件里面赋值, 所以新弄一个函数
-	QWORD getImageBase();
+	QWORD	getImageBase();
+	QWORD	getNumberOfSections();
 	LPCWSTR getImageBase(DWORD);
 	LPCWSTR getEntryPoint(DWORD);
 	LPCWSTR getSizeOFImage(DWORD);
@@ -52,6 +53,7 @@ public:
 	LPCWSTR getCheckSum(DWORD);
 	LPCWSTR getSizeOfOptionalHeader(DWORD);
 	LPCWSTR getNumOfRvaAndSizes(DWORD);
+	PIMAGE_SECTION_HEADER GetSectionHeader();
 
 private:
 	BOOL ReadPeFile(TCHAR* wszfileName);

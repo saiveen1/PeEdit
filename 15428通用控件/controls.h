@@ -43,6 +43,8 @@ VOID SetPeFileBaseInfo(HWND hwndOwner);
 
 VOID InitSectionsList(HWND hwndOwner);
 
+VOID SetSectionsItem(HWND hwndOwner, HWND hwndListSections);
+
 
 #endif // !controls_H
  

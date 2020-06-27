@@ -146,6 +146,11 @@ LPCWSTR x86PeFile::getImageBase(DWORD)
 	return pszBaseNum;
 }
 
+QWORD x86PeFile::getNumberOfSections()
+{
+	return pFileHeader->NumberOfSections;
+}
+
 LPCWSTR x86PeFile::getEntryPoint(DWORD)
 {
 	Hex2Str(pOptionalHeader->AddressOfEntryPoint, TYPDWORD, pszBaseNum);
@@ -244,4 +249,8 @@ LPCWSTR x86PeFile::getNumOfRvaAndSizes(DWORD)
 	return pszBaseNum;
 }
 
+PIMAGE_SECTION_HEADER x86PeFile::GetSectionHeader()
+{
+	return pSectionHeader;
+}
 

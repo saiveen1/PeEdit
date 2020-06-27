@@ -17,13 +17,14 @@ static LPCWSTR szArrModuleListTitle[3] =
 
 static LPCWSTR szArrSectionsListTitle[6] =
 {
-	TEXT("Name"),
-	TEXT("VirtualAddress"),
-	TEXT("VirtualSize"),
-	TEXT("PointerToRawData"),
-	TEXT("SizeOfRawData"),
-	TEXT("Flag")
+	L"Name",
+	L"VirtualAddress",
+	L"VirtualSize",
+	L"PointerToRData",
+	L"SizeOfRawData",
+	L"Flag"
 };
+
 
 static HWND hwndListProcess;
 static HWND hwndListModules;
@@ -74,7 +75,7 @@ VOID SetProcessListItem(HWND hwndOwner, HWND hListWnd)
 	//WCHAR szImageBase[MAX_LENGTH_IMAGE * 2] = {0};	//最开始定义的10以为够了 但是64位有16位...导致出错 发现万事皆消息 缓冲区地址不够了也传个1f消息到windows 
 	while (arrProcessEntry[dwProcessCount].dwSize)
 	{
-		if (!memcmp(szNameSysPrc, arrProcessEntry[dwProcessCount].szExeFile, 22))
+		if (!memcmp(szNameSysPrc, arrProcessEntry[dwProcessCount].szExeFile, 22))	//判断是否是svchost.exe
 		{
 			dwProcessCount++;
 			continue;
@@ -86,7 +87,7 @@ VOID SetProcessListItem(HWND hwndOwner, HWND hListWnd)
 		ListView_InsertItem(hListWnd, &vitem);
 
 
-		vitem.pszText = Hex2Str(arrProcessEntry[dwProcessCount].th32ProcessID, TYPDEFAULT_DECIMAL);	//需要
+		vitem.pszText = Hex2Str(arrProcessEntry[dwProcessCount].th32ProcessID, TYPDEFAULT);	//需要
 		//DbgPrintf("%d %d\n", dwRow, dwColumn);
 		vitem.iItem = dwRow;	//Row
 		vitem.iSubItem = dwColumn++;
@@ -259,10 +260,67 @@ VOID InitSectionsList(HWND hwndOwner)
 	for (int64_t i = 0; i < dwListSectionsColumns; i++)
 	{
 		lvColumn.iSubItem = (int)i;
-		lvColumn.cx = 118;
-		lvColumn.pszText = (LPWSTR)pszListTitleArr[i];
+		lvColumn.cx = 88;
+		if (!i)
+			lvColumn.cx = 60;
+		lvColumn.pszText = (LPWSTR)szArrSectionsListTitle[i];
 		ListView_InsertColumn(hwndListSections, i, &lvColumn);
 	}
 
-	SetProcessListItem(hwndOwner, hwndListSections);
+	SetSectionsItem(hwndOwner, hwndListSections);
+}
+
+VOID SetSectionsItem(HWND hwndOwner, HWND hwndListSections)
+{
+	LV_ITEM vitem = { 0 };
+	vitem.mask = LVIF_TEXT;
+
+	DWORD dwRow = 0;
+	DWORD dwColumn = 0;
+
+	PIMAGE_SECTION_HEADER pSectionHeader = pFileInfo->GetSectionHeader();
+
+
+	for (int i = 0; i < pFileInfo->getNumberOfSections(); i++)
+	{
+		vitem.pszText = char2wchar((char *)(pSectionHeader->Name));
+		vitem.iItem = dwRow;	//Row
+		vitem.iSubItem = dwColumn++;
+		ListView_InsertItem(hwndListSections, &vitem);
+
+
+		vitem.pszText = Hex2Str(pSectionHeader->VirtualAddress, TYPDWORD);
+		vitem.iItem = dwRow;	//Row
+		vitem.iSubItem = dwColumn++;
+		ListView_SetItem(hwndListSections, &vitem);	//第一列用Insert 后续用SetItem
+		delete vitem.pszText;
+
+		vitem.pszText = Hex2Str(pSectionHeader->Misc.VirtualSize, TYPDWORD);
+		vitem.iItem = dwRow;
+		vitem.iSubItem = dwColumn++;
+		ListView_SetItem(hwndListSections, &vitem);
+		delete vitem.pszText;
+
+		vitem.pszText = Hex2Str(pSectionHeader->PointerToRawData, TYPDWORD);
+		vitem.iItem = dwRow;
+		vitem.iSubItem = dwColumn++;
+		ListView_SetItem(hwndListSections, &vitem);
+		delete vitem.pszText;
+
+		vitem.pszText = Hex2Str(pSectionHeader->SizeOfRawData, TYPDWORD);
+		vitem.iItem = dwRow;
+		vitem.iSubItem = dwColumn++;
+		ListView_SetItem(hwndListSections, &vitem);
+		delete vitem.pszText;
+
+		vitem.pszText = Hex2Str(pSectionHeader->Characteristics, TYPDWORD);
+		vitem.iItem = dwRow;
+		vitem.iSubItem = dwColumn++;
+		ListView_SetItem(hwndListSections, &vitem);
+		delete vitem.pszText;
+
+		dwRow++;
+		dwColumn = 0;
+		pSectionHeader++;
+	}
 }

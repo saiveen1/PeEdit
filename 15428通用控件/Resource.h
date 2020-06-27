@@ -15,6 +15,7 @@
 #define IDD_DIALOG_MAIN                 129
 #define IDD_DIALOG_PEEDITOR             130
 #define IDD_DIALOG_SECTIONS             131
+#define IDD_DIALOG_DIRS                 132
 #define IDC_BUTTON_PEEDIT               1000
 #define IDC_BUTTON_ABOUT                1001
 #define IDC_BUTTON_QUIT                 1002
@@ -41,6 +42,39 @@
 #define IDC_EDIT_SUBSYSTEM              1032
 #define IDC_BUTTON_SECTIONS             1034
 #define IDC_LIST_SECTIONS               1035
+#define IDC_BUTTON_SECTIONS2            1036
+#define IDC_BUTTON_DIRECTORIES          1036
+#define IDC_EDIT_ENTRYPOINT3            1058
+#define IDC_EDIT_ENTRYPOINT5            1062
+#define IDC_EDIT_ENTRYPOINT7            1066
+#define IDC_EDIT_ENTRYPOINT9            1068
+#define IDC_EDIT_ENTRYPOINT2            1070
+#define IDC_EDIT_ENTRYPOINT4            1071
+#define IDC_EDIT_ENTRYPOINT8            1072
+#define IDC_EDIT_ENTRYPOINT10           1073
+#define IDC_EDIT_ENTRYPOINT6            1074
+#define IDC_EDIT_ENTRYPOINT11           1085
+#define IDC_EDIT_ENTRYPOINT12           1086
+#define IDC_EDIT_ENTRYPOINT13           1087
+#define IDC_EDIT_ENTRYPOINT14           1088
+#define IDC_EDIT_ENTRYPOINT15           1089
+#define IDC_EDIT_ENTRYPOINT16           1090
+#define IDC_EDIT_ENTRYPOINT17           1091
+#define IDC_EDIT_ENTRYPOINT18           1092
+#define IDC_EDIT_ENTRYPOINT19           1093
+#define IDC_EDIT_ENTRYPOINT20           1094
+#define IDC_EDIT_ENTRYPOINT21           1095
+#define IDC_EDIT_ENTRYPOINT22           1096
+#define IDC_EDIT_ENTRYPOINT23           1097
+#define IDC_EDIT_ENTRYPOINT24           1098
+#define IDC_EDIT_ENTRYPOINT25           1099
+#define IDC_EDIT_ENTRYPOINT26           1100
+#define IDC_EDIT_ENTRYPOINT27           1101
+#define IDC_EDIT_ENTRYPOINT28           1102
+#define IDC_EDIT_ENTRYPOINT29           1103
+#define IDC_EDIT_ENTRYPOINT30           1104
+#define IDC_EDIT_ENTRYPOINT31           1105
+#define IDC_EDIT_ENTRYPOINT32           1106
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -48,7 +82,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
-#define _APS_NEXT_RESOURCE_VALUE        132
+#define _APS_NEXT_RESOURCE_VALUE        133
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1037
 #define _APS_NEXT_SYMED_VALUE           110
