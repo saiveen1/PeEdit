@@ -138,7 +138,7 @@ LPCWSTR x86PeFile::getImageBase(DWORD)
 {
 	if (mb_isX64)
 	{
-		Hex2Str(pOptionalHeader->ImageBase, TYPQWORD, pszBaseNum);
+		Hex2Str(pOptionalHeader->ImageBase, TYPDEFAULT_DECIMAL, pszBaseNum);
 		return pszBaseNum;
 	}
 
