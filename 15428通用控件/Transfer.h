@@ -18,8 +18,6 @@
 
 QWORD GetDigits(QWORD qwSrc);
 
-//void Hex2Str(int64_t qwSrc, TCHAR *wszDest);
-
 int  Str2Int(const char *nptr);
 
 long  Str2Long(const char *nptr);
@@ -33,3 +31,5 @@ char * wchar2char(const wchar_t* wchar);
 //void newHex2Str(int64_t qwSrc, TCHAR *wszDest);
 
 LPWSTR Hex2Str(int64_t qwSrc, int64_t srcType);
+
+VOID Hex2Str(int64_t qwSrc, int64_t srcType,TCHAR *wszDest);

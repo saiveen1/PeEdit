@@ -118,3 +118,42 @@ QWORD GetDigits(QWORD qwSrc)
 	}
 	return dwDigits;
 }
+
+
+VOID Hex2Str(int64_t qwSrc, int64_t srcType, TCHAR *wszDest)
+{
+	DWORD dwHigh = HIQWORD(qwSrc);
+	DWORD dwLow = LOQWORD(qwSrc);
+	TCHAR szBase[4] = TEXT("%u");
+	QWORD qwDigits = GetDigits(dwLow);
+	if ((srcType >> 12) == 0xA)
+		srcType &= 0xFF;
+	else
+	{
+		TCHAR szTemp[] = TEXT("%lX");
+		memcpy(szBase, szTemp, 8);
+	}
+
+
+	if (srcType == TYPDEFAULT)
+	{
+		qwDigits = GetDigits(dwHigh);
+		wsprintfW(wszDest, szBase, dwHigh);
+		wsprintfW((LPWSTR)((int64_t)wszDest + qwDigits * 2), szBase, dwLow);
+	}
+
+	LPCWSTR wszPad = TEXT("0000000000000000");
+	//wszDest = (TCHAR *)(TEXT("0000000000000000")); 这样会导致wszdest变为static
+	memcpy(wszDest, wszPad, srcType * 2);
+
+	if (srcType == TYPQWORD || !srcType)
+	{
+		wsprintfW((LPWSTR)((int64_t)wszDest + qwDigits * 2 * (8 - qwDigits)), szBase, dwHigh);
+		qwDigits = GetDigits(dwLow);
+		wsprintfW((LPWSTR)((int64_t)wszDest + 0x10 + 2 * (8 - qwDigits)), szBase, LOQWORD(qwSrc));
+	}
+	//8代表16进制位数
+	if (!qwDigits)
+		qwDigits++; //为0的情况
+	wsprintfW((LPWSTR)((int64_t)wszDest + 2 * (srcType - qwDigits)), szBase, LOQWORD(qwSrc));
+}
