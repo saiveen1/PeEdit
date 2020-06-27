@@ -30,6 +30,7 @@ INT_PTR CALLBACK PeProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam
 
 	case WM_COMMAND:
 	{
+
 		switch (LOWORD(wParam))
 		{
 		case IDC_BUTTON_PEEDIT:
@@ -42,6 +43,14 @@ INT_PTR CALLBACK PeProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam
 			//AboutProc;
 			return TRUE;
 
+		case IDC_BUTTON_SECTIONS:
+			DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_SECTIONS), hwndDlg, SectionsProc);
+			return TRUE;
+
+		case IDC_BUTTON_DIRECTORIES:
+			DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_DIRS), hwndDlg, DirsProc);
+			return TRUE;
+
 		case IDC_BUTTON_QUIT:
 			EndDialog(hwndDlg, 0);
 			return TRUE;
@@ -50,7 +59,60 @@ INT_PTR CALLBACK PeProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam
 			return FALSE;
 		}
 
+	case WM_NOTIFY:
+	{
+		NMHDR *pNMHDR = (NMHDR *)lParam;
+		if (wParam == IDC_LIST_PROCESS && pNMHDR->code == NM_CLICK)
+		{
+			SetModulesListItem(hwndDlg, GetDlgItem(hwndDlg, IDC_LIST_PROCESS));
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+
+	case WM_CLOSE:
+		EndDialog(hwndDlg, 0);
 		return TRUE;
+
+	default:
+		return FALSE;
+	}
+	}
+}
+
+INT_PTR CALLBACK SectionsProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+	case WM_INITDIALOG:
+	{
+		InitSectionsList(hwndDlg);
+		//{
+		//	TCHAR* wszFileName = pFile->GetFileName(hwndDlg);
+		//	//MessageBox(hwndDlg, wszFileName, L"PEEDIT", MB_OK);
+		//	pFileInfo->Init(wszFileName);
+		//	DbgPrintf("%lld", pFileInfo->getImageBase());
+		//	SetPeFileBaseInfo(hwndDlg);
+		//}
+		return TRUE;
+	}
+
+	case WM_COMMAND:
+	{
+		switch (LOWORD(wParam))
+		{
+		case IDC_BUTTON_SECTIONS:
+			DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_SECTIONS), hwndDlg, PeProc);
+			return TRUE;
+
+		case IDC_BUTTON_QUIT:
+			EndDialog(hwndDlg, 0);
+			return TRUE;
+
+		default:
+			return FALSE;
+		}
 	}
 
 	case WM_NOTIFY:
@@ -72,5 +134,60 @@ INT_PTR CALLBACK PeProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam
 	default:
 		return FALSE;
 	}
+
+}
+
+INT_PTR CALLBACK DirsProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+	case WM_INITDIALOG:
+	{
+		MessageBox(hwndDlg, TEXT("Dirs"), L"PEEDIT", MB_OK);
+
+		return TRUE;
+	}
+
+	//case WM_COMMAND:
+	//{
+	//	switch (LOWORD(wParam))
+	//	{
+	//	case IDC_BUTTON_SECTIONS:
+	//		DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_SECTIONS), hwndDlg, PeProc);
+	//		return TRUE;
+
+	//	case IDC_BUTTON_DIRECTORIES:
+	//		DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_DIRS), hwndDlg, PeProc);
+	//		return TRUE;
+
+	//	case IDC_BUTTON_QUIT:
+	//		EndDialog(hwndDlg, 0);
+	//		return TRUE;
+
+	//	default:
+	//		return FALSE;
+	//	}
+	//}
+
+	//case WM_NOTIFY:
+	//{
+	//	NMHDR *pNMHDR = (NMHDR *)lParam;
+	//	if (wParam == IDC_LIST_PROCESS && pNMHDR->code == NM_CLICK)
+	//	{
+	//		SetModulesListItem(hwndDlg, GetDlgItem(hwndDlg, IDC_LIST_PROCESS));
+	//		return TRUE;
+	//	}
+
+	//	return FALSE;
+	//}
+
+	case WM_CLOSE:
+		EndDialog(hwndDlg, 0);
+		return TRUE;
+
+	default:
+		return FALSE;
+	}
+
 }
 

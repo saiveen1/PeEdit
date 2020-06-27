@@ -11,8 +11,11 @@
 
 #endif // _DEBUG
 
-
+extern HINSTANCE hInst;
+#include "resource.h"
 
 
 INT_PTR CALLBACK PeProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam);
+
+INT_PTR CALLBACK SectionsProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam);
 

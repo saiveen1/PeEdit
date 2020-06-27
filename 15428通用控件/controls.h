@@ -24,7 +24,9 @@ using namespace std;
 #define __HEX				16
 
 class FileMethod;
-class x86PeFile;
+class x86PeFile;	//Ç°ÖÃÉùÃ÷
+
+
 
 //LV listView
 //HWND h instance windows
@@ -38,6 +40,8 @@ VOID InitModuleList(HWND hwndOwner);
 VOID SetModulesListItem(HWND hwndOwner, HWND hwndListProcess);
 
 VOID SetPeFileBaseInfo(HWND hwndOwner);
+
+VOID InitSectionsList(HWND hwndOwner);
 
 
 #endif // !controls_H

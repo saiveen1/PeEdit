@@ -1,6 +1,6 @@
 #include "controls.h"
 #include "DIALOGPROC.h"	//pe info ±‰¡ø
-static const TCHAR *pszListTitleArr[4] =
+static LPCWSTR pszListTitleArr[4] =
 {
 	L"Process",
 	L"PID",
@@ -8,26 +8,33 @@ static const TCHAR *pszListTitleArr[4] =
 	L"SizeOfImage"
 };
 
-static const TCHAR *szArrModuleListTitle[3] =
+static LPCWSTR szArrModuleListTitle[3] =
 {
 	L"Process",
 	L"ImageBase",
 	L"SizeOfImage"
 };
 
-static const DWORD dwListProcessColumns = 4;
-
-static const DWORD dwListModulesColums = 3;
+static LPCWSTR szArrSectionsListTitle[6] =
+{
+	TEXT("Name"),
+	TEXT("VirtualAddress"),
+	TEXT("VirtualSize"),
+	TEXT("PointerToRawData"),
+	TEXT("SizeOfRawData"),
+	TEXT("Flag")
+};
 
 static HWND hwndListProcess;
-
 static HWND hwndListModules;
+static HWND hwndListSections;
 
 static const TCHAR szProblemProc[] = TEXT("System Process");
 
 VOID InitProcessList(HWND hwndOwner)
 {
 	LV_COLUMN lvColumn;
+	const DWORD dwListProcessColumns = 4;
 
 	memset(&lvColumn, 0, sizeof(lvColumn));
 	//lvColumn = { 0 };
@@ -123,10 +130,12 @@ VOID SetProcessListItem(HWND hwndOwner, HWND hListWnd)
 VOID InitModuleList(HWND hwndOwner)
 {
 	LV_COLUMN lvColumn;
-	memset(&lvColumn, 0, sizeof(lvColumn));
 
-	hwndListProcess = GetDlgItem(hwndOwner, IDC_LIST_MODULES);
-	SendMessage(hwndListProcess, LVM_SETEXTENDEDLISTVIEWSTYLE, LVS_EX_FULLROWSELECT, LVS_EX_FULLROWSELECT);
+	const DWORD dwListModulesColums = 3;
+	memset(&lvColumn, 0, sizeof(lvColumn));
+	hwndListModules = GetDlgItem(hwndOwner, IDC_LIST_MODULES);
+
+	SendMessage(hwndListModules, LVM_SETEXTENDEDLISTVIEWSTYLE, LVS_EX_FULLROWSELECT, LVS_EX_FULLROWSELECT);
 
 	lvColumn.mask = LVCF_TEXT | LVCF_WIDTH | LVCF_SUBITEM;
 	for (int64_t i = 0; i < dwListModulesColums; i++)
@@ -137,7 +146,7 @@ VOID InitModuleList(HWND hwndOwner)
 		else
 			lvColumn.cx = 118;
 		lvColumn.pszText = (LPWSTR)szArrModuleListTitle[i];
-		ListView_InsertColumn(hwndListProcess, i, &lvColumn);
+		ListView_InsertColumn(hwndListModules, i, &lvColumn);
 	}
 }
 
@@ -232,4 +241,28 @@ VOID SetPeFileBaseInfo(HWND hwndOwner)
 	SetDlgItemText(hwndOwner, IDC_EDIT_CHECKSUM, pFileInfo->getCheckSum(GETWCHAR));
 	SetDlgItemText(hwndOwner, IDC_EDIT_SIZEOFOPTIONALHEADER, pFileInfo->getSizeOfOptionalHeader(GETWCHAR));
 	SetDlgItemText(hwndOwner, IDC_EDIT_NUMOFRVAANDSIZES, pFileInfo->getNumOfRvaAndSizes(GETWCHAR));
+}
+
+VOID InitSectionsList(HWND hwndOwner)
+{
+	LV_COLUMN lvColumn;
+	HWND hwndListSections;
+	const QWORD dwListSectionsColumns = 6;
+
+	memset(&lvColumn, 0, sizeof(lvColumn));
+	//lvColumn = { 0 };
+
+	hwndListSections = GetDlgItem(hwndOwner, IDC_LIST_SECTIONS);
+	SendMessage(hwndListSections, LVM_SETEXTENDEDLISTVIEWSTYLE, LVS_EX_FULLROWSELECT, LVS_EX_FULLROWSELECT);
+
+	lvColumn.mask = LVCF_TEXT | LVCF_WIDTH | LVCF_SUBITEM;
+	for (int64_t i = 0; i < dwListSectionsColumns; i++)
+	{
+		lvColumn.iSubItem = (int)i;
+		lvColumn.cx = 118;
+		lvColumn.pszText = (LPWSTR)pszListTitleArr[i];
+		ListView_InsertColumn(hwndListSections, i, &lvColumn);
+	}
+
+	SetProcessListItem(hwndOwner, hwndListSections);
 }
