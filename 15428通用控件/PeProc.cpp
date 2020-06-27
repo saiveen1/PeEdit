@@ -15,6 +15,11 @@ INT_PTR CALLBACK PeProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam
 	{
 		{
 			TCHAR* wszFileName = pFile->GetFileName(hwndDlg);
+			if (!*((LLPVOID)wszFileName))
+			{
+				EndDialog(hwndDlg, 0);
+				return TRUE;
+			}
 			//MessageBox(hwndDlg, wszFileName, L"PEEDIT", MB_OK);
 			pFileInfo->Init(wszFileName);
 			//DbgPrintf("%lld", pFileInfo->getImageBase());
@@ -25,37 +30,37 @@ INT_PTR CALLBACK PeProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam
 
 	case WM_COMMAND:
 	{
-		//switch (LOWORD(wParam))
-		//{
-		//case IDC_BUTTON_PEEDIT:
-		//	MessageBox(hwndDlg, L"Clicked PEEDIT", L"PEEDIT", MB_OK);
-		//	//PeEditcProc();
-		//	return TRUE;
+		switch (LOWORD(wParam))
+		{
+		case IDC_BUTTON_PEEDIT:
+			MessageBox(hwndDlg, L"Clicked PEEDIT", L"PEEDIT", MB_OK);
+			//PeEditcProc();
+			return TRUE;
 
-		//case IDC_BUTTON_ABOUT:
-		//	MessageBox(hwndDlg, L"Clicked About", L"About", MB_OK);
-		//	//AboutProc;
-		//	return TRUE;
+		case IDC_BUTTON_ABOUT:
+			MessageBox(hwndDlg, L"Clicked About", L"About", MB_OK);
+			//AboutProc;
+			return TRUE;
 
-		//case IDC_BUTTON_QUIT:
-		//	EndDialog(hwndDlg, 0);
-		//	return TRUE;
+		case IDC_BUTTON_QUIT:
+			EndDialog(hwndDlg, 0);
+			return TRUE;
 
-		//default:
-		//	return FALSE;
-		//}
+		default:
+			return FALSE;
+		}
 
 		return TRUE;
 	}
 
 	case WM_NOTIFY:
 	{
-		//NMHDR *pNMHDR = (NMHDR *)lParam;
-		//if (wParam == IDC_LIST_PROCESS && pNMHDR->code == NM_CLICK)
-		//{
-		//	SetModulesListItem(hwndDlg, GetDlgItem(hwndDlg, IDC_LIST_PROCESS));
-		//	return TRUE;
-		//}
+		NMHDR *pNMHDR = (NMHDR *)lParam;
+		if (wParam == IDC_LIST_PROCESS && pNMHDR->code == NM_CLICK)
+		{
+			SetModulesListItem(hwndDlg, GetDlgItem(hwndDlg, IDC_LIST_PROCESS));
+			return TRUE;
+		}
 
 		return FALSE;
 	}

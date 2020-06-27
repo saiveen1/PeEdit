@@ -8,10 +8,13 @@
 #include "namedefine.h"
 
 
-#define TYPDEFAULT 0
-#define TYPWORD	4
-#define TYPDWORD	8
-#define TYPQWORD	16
+#define TYPDEFAULT			0XF
+#define TYPWORD				0X4
+#define TYPDWORD			0X8
+#define TYPDWORD_DECIMAL	0xA008
+#define TYPDEFAULT_DECIMAL	0xA00F
+#define TYPQWORD_DECIMAL	0xA010
+#define TYPQWORD			0X10
 
 QWORD GetDigits(QWORD qwSrc);
 

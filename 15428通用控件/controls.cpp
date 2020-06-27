@@ -79,11 +79,12 @@ VOID SetProcessListItem(HWND hwndOwner, HWND hListWnd)
 		ListView_InsertItem(hListWnd, &vitem);
 
 
-		vitem.pszText = Hex2Str(arrProcessEntry[dwProcessCount].th32ProcessID,TYPDWORD);
+		vitem.pszText = Hex2Str(arrProcessEntry[dwProcessCount].th32ProcessID, TYPDEFAULT_DECIMAL);	//需要
 		//DbgPrintf("%d %d\n", dwRow, dwColumn);
 		vitem.iItem = dwRow;	//Row
 		vitem.iSubItem = dwColumn++;
 		ListView_SetItem(hListWnd, &vitem);	//第一列用Insert 后续用SetItem
+		delete vitem.pszText;
 
 		if (!GetProcImageInfo(arrProcessEntry[dwProcessCount].th32ProcessID, pModuleEntryW))
 		{
@@ -100,12 +101,14 @@ VOID SetProcessListItem(HWND hwndOwner, HWND hListWnd)
 			vitem.iItem = dwRow;
 			vitem.iSubItem = dwColumn++;
 			ListView_SetItem(hListWnd, &vitem);
+			delete vitem.pszText;
 			
 			//_ultoa_s((pModuleEntryW.modBaseSize), szImageSize, __HEX);
 			vitem.pszText = Hex2Str(pModuleEntryW.modBaseSize,TYPDEFAULT);
 			vitem.iItem = dwRow;
 			vitem.iSubItem = dwColumn++;
 			ListView_SetItem(hListWnd, &vitem);
+			delete vitem.pszText;
 		}
 
 		memset(&pModuleEntryW,0,sizeof(MODULEENTRY32W));
@@ -171,7 +174,7 @@ VOID SetModulesListItem(HWND hWndOwner, HWND hwndListProcess)
 		return;
 
 	char *szPid = wchar2char(wszPid);
-	DWORD dwPID = Str2Int(szPid);
+	DWORD dwPID = stol(szPid,0,10);
 	DWORD dwCount = 0;
 	DWORD dwRow = 0;
 	DWORD dwColumn = 0;
@@ -193,6 +196,7 @@ VOID SetModulesListItem(HWND hWndOwner, HWND hwndListProcess)
 		lvItem.iSubItem = dwColumn++;
 		lvItem.pszText = Hex2Str(ImageBase, TYPDEFAULT);
 		ListView_SetItem(hwndListModules, &lvItem);
+		delete lvItem.pszText;
 
 		
 
@@ -201,6 +205,7 @@ VOID SetModulesListItem(HWND hWndOwner, HWND hwndListProcess)
 		lvItem.iItem = dwRow;
 		lvItem.iSubItem = dwColumn;
 		ListView_SetItem(hwndListModules, &lvItem);
+		delete lvItem.pszText;
 		
 		dwRow++;
 		dwCount++;

@@ -8,6 +8,11 @@
 #include "resource.h"
 #include "Transfer.h"
 
+
+#include <iostream>
+#include <string>
+using namespace std;
+
 #include <commctrl.h>			
 #pragma comment(lib,"comctl32.lib")		
 

@@ -11,6 +11,7 @@ x86PeFile::x86PeFile()
 x86PeFile::~x86PeFile()
 {
 	delete pszBaseNum;
+	delete m_pFileBuffer;
 }
 
 BOOL x86PeFile::ReadPeFile(TCHAR *wszFileName)
