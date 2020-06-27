@@ -8,6 +8,7 @@
 #include "namedefine.h"
 
 
+
 #define TYPDEFAULT 0
 #define TYPWORD	4
 #define TYPDWORD	8

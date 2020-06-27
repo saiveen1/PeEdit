@@ -8,6 +8,9 @@
 #include "x86PeFile.h"
 #include "FileMethod.h"
 
+#include "controls.h"
+#include "15428Í¨ÓÃ¿Ø¼þ.h"
+
 extern HINSTANCE hInst;
 
 INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam);

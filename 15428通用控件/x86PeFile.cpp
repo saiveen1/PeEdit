@@ -80,9 +80,9 @@ VOID x86PeFile::InitializeBasicInfo(LLPVOID pFileBuffer)
 	{
 		mb_isX64 = FALSE;
 		pOptionalHeader32 = (PIMAGE_OPTIONAL_HEADER32)pOptionalHeader;
-		pSectionHeader = (PIMAGE_SECTION_HEADER)((QWORD)pOptionalHeader + pFileHeader->SizeOfOptionalHeader);
+		pSectionHeader = (PIMAGE_SECTION_HEADER)((QWORD)pOptionalHeader32 + pFileHeader->SizeOfOptionalHeader);
 
-		/* 花了几个小时的极品脑残之作, 当作复习指针了....
+		/* 花了几个小时的极品脑残之作, 当作复习指针了.... 由手写memcpy到用memcpy再到最后发现强转就可以了....
 		baseOfData = LOQWORD(pOptionalHeader->ImageBase);
 		pOptionalHeader->ImageBase = HIQWORD(pOptionalHeader->ImageBase);
 
