@@ -6,6 +6,7 @@
 #include <windows.h>
 #include <stdint.h>
 #include "namedefine.h"
+#include <stdio.h>
 
 
 
@@ -27,6 +28,11 @@ long  Str2Long(const char *nptr);
 wchar_t * char2wchar(const char* cchar);
 
 char * wchar2char(const wchar_t* wchar);
+
+DWORD Str2int(LPSTR);
+
+DWORD Str2int(LPCWSTR);
+
 
 
 

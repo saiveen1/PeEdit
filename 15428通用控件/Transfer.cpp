@@ -109,6 +109,20 @@ char * wchar2char(const wchar_t* wchar)
 	return m_char;
 }
 
+DWORD Str2int(LPSTR wszSrc)
+{
+	DWORD ans = 0;
+	sscanf_s(wszSrc, "%d", &ans);
+	return ans;
+}
+
+DWORD Str2int(LPCWSTR wszSrc)
+{
+	DWORD ans = 0;
+	swscanf_s(wszSrc, L"%d", &ans);
+	return ans;
+}
+
 QWORD GetDigits(QWORD qwSrc)
 {
 	QWORD dwDigits = 0;

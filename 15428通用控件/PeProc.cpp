@@ -117,13 +117,6 @@ INT_PTR CALLBACK SectionsProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM 
 
 	case WM_NOTIFY:
 	{
-		NMHDR *pNMHDR = (NMHDR *)lParam;
-		if (wParam == IDC_LIST_PROCESS && pNMHDR->code == NM_CLICK)
-		{
-			SetModulesListItem(hwndDlg, GetDlgItem(hwndDlg, IDC_LIST_PROCESS));
-			return TRUE;
-		}
-
 		return FALSE;
 	}
 
@@ -167,19 +160,7 @@ INT_PTR CALLBACK DirsProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPar
 	//	default:
 	//		return FALSE;
 	//	}
-	//}
-
-	//case WM_NOTIFY:
-	//{
-	//	NMHDR *pNMHDR = (NMHDR *)lParam;
-	//	if (wParam == IDC_LIST_PROCESS && pNMHDR->code == NM_CLICK)
-	//	{
-	//		SetModulesListItem(hwndDlg, GetDlgItem(hwndDlg, IDC_LIST_PROCESS));
-	//		return TRUE;
-	//	}
-
-	//	return FALSE;
-	//}
+	//};
 
 	case WM_CLOSE:
 		EndDialog(hwndDlg, 0);

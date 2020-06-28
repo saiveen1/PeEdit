@@ -87,7 +87,7 @@ VOID SetProcessListItem(HWND hwndOwner, HWND hListWnd)
 		ListView_InsertItem(hListWnd, &vitem);
 
 
-		vitem.pszText = Hex2Str(arrProcessEntry[dwProcessCount].th32ProcessID, TYPDEFAULT);	//需要
+		vitem.pszText = Hex2Str(arrProcessEntry[dwProcessCount].th32ProcessID, TYPDEFAULT_DECIMAL);	//需要
 		//DbgPrintf("%d %d\n", dwRow, dwColumn);
 		vitem.iItem = dwRow;	//Row
 		vitem.iSubItem = dwColumn++;
@@ -183,8 +183,10 @@ VOID SetModulesListItem(HWND hWndOwner, HWND hwndListProcess)
 	if (!wcscmp(wszProcName, szProblemProc))
 		return;
 
-	char *szPid = wchar2char(wszPid);
-	DWORD dwPID = stol(szPid,0,10);
+	//char *szPid = wchar2char(wszPid);
+	//DWORD dwPID = stol(szPid,0,10);
+	//delete szPid;
+	DWORD dwPID = Str2int(wszPid);
 	DWORD dwCount = 0;
 	DWORD dwRow = 0;
 	DWORD dwColumn = 0;
