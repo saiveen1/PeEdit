@@ -76,12 +76,14 @@ VOID x86PeFile::InitializeBasicInfo(LLPVOID pFileBuffer)
 	{
 		mb_isX64 = TRUE;
 		pSectionHeader = (PIMAGE_SECTION_HEADER)((QWORD)pOptionalHeader + pFileHeader->SizeOfOptionalHeader);
+		pDataDirectory = pOptionalHeader->DataDirectory;
 	}
 	else
 	{
 		mb_isX64 = FALSE;
 		pOptionalHeader32 = (PIMAGE_OPTIONAL_HEADER32)pOptionalHeader;
 		pSectionHeader = (PIMAGE_SECTION_HEADER)((QWORD)pOptionalHeader32 + pFileHeader->SizeOfOptionalHeader);
+		pDataDirectory = pOptionalHeader32->DataDirectory;
 
 		/* 花了几个小时的极品脑残之作, 当作复习指针了.... 由手写memcpy到用memcpy再到最后发现强转就可以了....
 		baseOfData = LOQWORD(pOptionalHeader->ImageBase);
@@ -138,7 +140,7 @@ LPCWSTR x86PeFile::getImageBase(DWORD)
 {
 	if (mb_isX64)
 	{
-		Hex2Str(pOptionalHeader->ImageBase, TYPDEFAULT_DECIMAL, pszBaseNum);
+		Hex2Str(pOptionalHeader->ImageBase, TYPQWORD, pszBaseNum);
 		return pszBaseNum;
 	}
 
@@ -252,5 +254,10 @@ LPCWSTR x86PeFile::getNumOfRvaAndSizes(DWORD)
 PIMAGE_SECTION_HEADER x86PeFile::GetSectionHeader()
 {
 	return pSectionHeader;
+}
+
+PIMAGE_DATA_DIRECTORY x86PeFile::GetDirectoryTable()
+{
+	return pDataDirectory;
 }
 

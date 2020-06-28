@@ -54,6 +54,7 @@ public:
 	LPCWSTR getSizeOfOptionalHeader(DWORD);
 	LPCWSTR getNumOfRvaAndSizes(DWORD);
 	PIMAGE_SECTION_HEADER GetSectionHeader();
+	PIMAGE_DATA_DIRECTORY GetDirectoryTable();
 
 private:
 	BOOL ReadPeFile(TCHAR* wszfileName);
@@ -74,6 +75,7 @@ private:
 	PIMAGE_OPTIONAL_HEADER64 pOptionalHeader = NULL;
 	PIMAGE_OPTIONAL_HEADER32 pOptionalHeader32 = NULL;
 	PIMAGE_SECTION_HEADER pSectionHeader = NULL;
+	PIMAGE_DATA_DIRECTORY pDataDirectory = NULL;
 };
 
 

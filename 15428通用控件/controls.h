@@ -45,6 +45,8 @@ VOID InitSectionsList(HWND hwndOwner);
 
 VOID SetSectionsItem(HWND hwndOwner, HWND hwndListSections);
 
+VOID SetDirtoryTable(HWND hwndOwner);
+
 
 #endif // !controls_H
  

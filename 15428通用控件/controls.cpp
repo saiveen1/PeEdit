@@ -324,3 +324,19 @@ VOID SetSectionsItem(HWND hwndOwner, HWND hwndListSections)
 		pSectionHeader++;
 	}
 }
+
+VOID SetDirtoryTable(HWND hwndOwner)
+{
+	PIMAGE_DATA_DIRECTORY pDataDirectory = pFileInfo->GetDirectoryTable();
+	TCHAR *wszTemp = new TCHAR[TYPDWORD + 1];
+	int editCount = IDC_EDIT_ER;
+	for (QWORD i = 0; i < 0x10; i++)
+	{
+		Hex2Str(pDataDirectory->VirtualAddress, TYPDWORD, wszTemp);
+		SetDlgItemText(hwndOwner, editCount++, wszTemp);
+		Hex2Str(pDataDirectory->Size, TYPDWORD, wszTemp);
+		SetDlgItemText(hwndOwner, editCount++, wszTemp);
+		pDataDirectory++;
+	}
+	delete wszTemp;
+}

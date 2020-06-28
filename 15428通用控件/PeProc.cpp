@@ -143,8 +143,8 @@ INT_PTR CALLBACK DirsProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPar
 	{
 	case WM_INITDIALOG:
 	{
-		MessageBox(hwndDlg, TEXT("Dirs"), L"PEEDIT", MB_OK);
-
+		//MessageBox(hwndDlg, TEXT("Dirs"), L"PEEDIT", MB_OK);
+		SetDirtoryTable(hwndDlg);
 		return TRUE;
 	}
 

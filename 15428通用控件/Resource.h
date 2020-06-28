@@ -42,17 +42,19 @@
 #define IDC_EDIT_SUBSYSTEM              1032
 #define IDC_BUTTON_SECTIONS             1034
 #define IDC_LIST_SECTIONS               1035
-#define IDC_BUTTON_SECTIONS2            1036
 #define IDC_BUTTON_DIRECTORIES          1036
-#define IDC_EDIT_ENTRYPOINT3            1058
-#define IDC_EDIT_ENTRYPOINT5            1062
-#define IDC_EDIT_ENTRYPOINT7            1066
-#define IDC_EDIT_ENTRYPOINT9            1068
-#define IDC_EDIT_ENTRYPOINT2            1070
-#define IDC_EDIT_ENTRYPOINT4            1071
-#define IDC_EDIT_ENTRYPOINT8            1072
-#define IDC_EDIT_ENTRYPOINT10           1073
-#define IDC_EDIT_ENTRYPOINT6            1074
+
+//Directory Table Start
+#define IDC_EDIT_ER                     1075
+#define IDC_EDIT_ES                     1076
+#define IDC_EDIT_IR                     1077
+#define IDC_EDIT_IS                     1078
+#define IDC_EDIT_ENTRYPOINT5            1079
+#define IDC_EDIT_ENTRYPOINT6            1080
+#define IDC_EDIT_ENTRYPOINT7            1081
+#define IDC_EDIT_ENTRYPOINT8            1082
+#define IDC_EDIT_ENTRYPOINT9            1083
+#define IDC_EDIT_ENTRYPOINT10           1084
 #define IDC_EDIT_ENTRYPOINT11           1085
 #define IDC_EDIT_ENTRYPOINT12           1086
 #define IDC_EDIT_ENTRYPOINT13           1087
@@ -76,6 +78,8 @@
 #define IDC_EDIT_ENTRYPOINT31           1105
 #define IDC_EDIT_ENTRYPOINT32           1106
 #define IDC_STATIC                      -1
+//Directory Table End
+
 
 // Next default values for new objects
 // 
@@ -84,7 +88,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        133
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1037
+#define _APS_NEXT_CONTROL_VALUE         1038
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif
